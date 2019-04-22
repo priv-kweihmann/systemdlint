@@ -1,2 +1,2 @@
 # systemdlint
-Systemd Linter
+Systemd Unitfile Linter

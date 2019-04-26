@@ -1,21 +1,57 @@
-import os
-import string
-import stat
-import pathlib
 import datetime
-import re
-import sys
-import ipaddress
+import glob
 import importlib
-##from systemdlint.cls.unititem import UnitItem
+import ipaddress
+import os
+import pathlib
+import re
+import stat
+import string
+import sys
+
+from urllib.parse import urlparse
+
 from systemdlint.cls.error import *
 from systemdlint.cls.helper import Helper
+from systemdlint.conf.knownPaths import KNOWN_PATHS
+from systemdlint.conf.knownUnits import KNOWN_UNITS_EXT
 
 class Value(object):
     def __init__(self, conditional={}):
         self.__conditionals = conditional
 
     def CleanValue(self, value):
+        _template = { 
+            "%b": "123456",
+            "%C": "/tmp",
+            "%E": "/tmp",
+            "%f": "foofile",
+            "%h": "/tmp",
+            "%H": "foohost",
+            "%i": "fooinst",
+            "%I": "fooinst",
+            "%j": "foo",
+            "%J": "foo",
+            "%L": "/tmp",
+            "%m": "foomachine",
+            "%n": "foounit",
+            "%N": "foounit",
+            "%p": "foo",
+            "%P": "foo",
+            "%s": "/bin/sh",
+            "%S": "/tmp",
+            "%t": "/",
+            "%T": "/tmp",
+            "%g": "foogroup",
+            "%G": "foogroup",
+            "%u": "foouser",
+            "%U": "foouser",
+            "%v": "1.2.3",
+            "%V": "/tmp",
+            "%": "%"
+        }
+        for k, v in _template.items():
+            value = value.replace(k, v)
         return Helper.StripLeftAll(value, self.__conditionals.keys())
 
     def IsAllowedValue(self, value):
@@ -193,16 +229,14 @@ class UsersValue(Value):
         super().__init__(conditional)
 
     def IsAllowedValue(self, value):
-        ## TODO users parser
-        return True
+        return re.match(r"^[a-z_]([a-z0-9_-]{0,31}|[a-z0-9_-]{0,30}\$)$", self.CleanValue(value))
 
 class GroupsValue(Value):
     def __init__(self, conditional={}):
         super().__init__(conditional)
 
     def IsAllowedValue(self, value):
-        ## TODO groups parser
-        return True
+        return re.match(r"^[a-z_]([a-z0-9_-]{0,31}|[a-z0-9_-]{0,30}\$)$", self.CleanValue(value))
 
 class EnumListValue(Value):
     def __init__(self, values, conditional={}):
@@ -243,8 +277,16 @@ class UrlListValue(Value):
         super().__init__(conditional)
 
     def IsAllowedValue(self, value):
-        ## TODO url parsing
-        return True
+        res = True
+        for item in self.CleanValue(value).split(" "):
+            try:
+                result = urlparse(val)
+                if not result.scheme or not result.netloc:
+                    raise Exception()
+            except:
+                res = False
+                break
+        return res
 
 class UnitListValue(Value):
     def __init__(self, requiredExt="", conditional={}):
@@ -252,8 +294,25 @@ class UnitListValue(Value):
         super().__init__(conditional)
 
     def IsAllowedValue(self, value):
-        ## TODO unit parsing
         return all([x.endswith(self.__ext) for x in self.CleanValue(value).split(" ") if x])
+
+    def AdditionalErrors(self, value, item, args):
+        val = self.CleanValue(value)
+        res = super().AdditionalErrors(value, item, args)
+        for k in val.split(" "):
+            found = False
+            ## Skip unit with templates for now
+            _file, fileext = os.path.splitext(k)
+            if "@" in k or "%" in k or fileext not in KNOWN_UNITS_EXT:
+                found = True
+            else:
+                for p in KNOWN_PATHS:
+                    found = any([os.path.basename(x) == k for x in glob.glob(Helper.GetPath(args.rootpath, p))])
+                    if found:
+                        break
+            if not found:
+                res.append(ErrorRefUnitNotFound(k, item.Line, item.File))
+        return list(set(res))
 
 class AbsolutePathListValue(Value):
     def __init__(self, conditional={}):

@@ -101,6 +101,7 @@ KNOWN_SETTINGS = [
     Setting(section="Link", name="AllMulticast", allowedValue=BooleanValue()),
     Setting(section="Link", name="ARP", allowedValue=BooleanValue()),
     Setting(section="Link", name="MACAddress", allowedValue=TextValue()), ## TODO: MACAddress list parser
+    Setting(section="Link", name="MACAddressPolicy", allowedValue=TextValue()), ## TODO: parser
     Setting(section="Link", name="MTUBytes", allowedValue=NumericValue(suffixes=["K", "M", "G"], base=1024)),
     Setting(section="Link", name="Multicast", allowedValue=BooleanValue()),
     Setting(section="Link", name="RequiredForOnline", allowedValue=BooleanValue()),
@@ -586,6 +587,7 @@ KNOWN_SETTINGS = [
     Setting(section="Service", name="StandardInputText", allowedValue=TextValue(), sinceRel="2.34" ),
     Setting(section="Service", name="StandardOutput", allowedValue=EitherValue(args=[EnumValue(["inherit", "null", "tty", "journal", "syslog", "kmsg", "journal+console", "syslog+console", "kmsg+console", "socket"]), TextValue()]) ),
     Setting(section="Service", name="StartLimitBurst", allowedValue=NumericValue() ),
+    Setting(section="Service", name="StartLimitInterval", allowedValue=TimeValue() ),
     Setting(section="Service", name="StartLimitIntervalSec", allowedValue=NumericValue() ),
     Setting(section="Service", name="StartupCPUShares", allowedValue=NumericValue(lower=2, upper=262144), tillRel="2.41" ),
     Setting(section="Service", name="StartupCPUWeight", allowedValue=NumericValue(1, 10000) ),
@@ -1078,7 +1080,7 @@ KNOWN_SETTINGS = [
     Setting(section="Unit", name="Conflicts", allowedValue=UnitListValue() ),
     Setting(section="Unit", name="DefaultDependencies", allowedValue=BooleanValue() ),
     Setting(section="Unit", name="Description", allowedValue=TextValue() ),
-    Setting(section="Unit", name="Documentation", allowedValue=UrlListValue() ),
+    Setting(section="Unit", name="Documentation", allowedValue=TextValue() ),
     Setting(section="Unit", name="FailureAction", allowedValue=EnumValue(["none", "reboot", "reboot-force", "reboot-immediate", "poweroff", "poweroff-force", "poweroff-immediate", "exit", "exit-force"]), sinceRel="2.13" ),
     Setting(section="Unit", name="FailureActionExitStatus", allowedValue=NumericValue(0, 255), sinceRel="2.40" ),
     Setting(section="Unit", name="IgnoreOnIsolate", allowedValue=BooleanValue() ),

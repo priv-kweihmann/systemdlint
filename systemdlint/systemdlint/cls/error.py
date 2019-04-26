@@ -34,9 +34,21 @@ class ErrorSyntaxError(Error):
     def __init__(self, msg, line, file):
         super().__init__("error", "SyntaxError", msg, line, file)
 
+class ErrorUnknownUnitType(Error):
+    def __init__(self, fileext, file):
+        super().__init__("warning", "UnknownUnitType", "The extention '{}' is unknown".format(fileext), 1, file)
+
+class ErrorFileMaskWrong(Error):
+    def __init__(self, current, expected, file):
+        super().__init__("warning", "WrongFileMask", "The current filemask '{}' is risky. Please use {}".format(oct(current), ",".join([oct(x) for x in expected])), 1, file)
+
 class ErrorUnitSectionMissing(Error):
     def __init__(self, file):
         super().__init__("error", "UnitSectionMissing", "[Unit]-Section is missing in file", 1, file)
+
+class ErrorRefUnitNotFound(Error):
+    def __init__(self, unit, line, file):
+        super().__init__("warning", "ReferencedUnitNotFound", "The Unit '{}' referenced was not found in filesystem".format(unit), line, file)
 
 class ErrorMandatoryOptionMissing(Error):
     def __init__(self, option, section, file):

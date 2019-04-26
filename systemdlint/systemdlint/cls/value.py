@@ -165,7 +165,6 @@ class TimeValue(Value):
                     print(e)
                     return False
             if val:
-                print("Some left '{}'".format(val))
                 ## There is something left in the string
                 return False
         return True

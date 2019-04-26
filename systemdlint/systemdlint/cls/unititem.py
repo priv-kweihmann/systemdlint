@@ -35,10 +35,10 @@ class UnitItem(object):
         return None
 
     def Validate(self, runargs, stash):
-        res = self.__preerror
-        if res:
+        res = []
+        if self.__preerror:
             ## In case we have pre-existing errors quit here
-            return res
+            return self.__preerror
         self.__settingHandler = self.__getMatchingItem(sversion=runargs.sversion)
         if not self.__settingHandler:
             res.append(ErrorInvalidSetting(self.Key, self.Section, self.Line, self.File))
@@ -47,7 +47,7 @@ class UnitItem(object):
         else:
             res += self.__settingHandler.AllowedValue.AdditionalErrors(self.Value, self, runargs)
     
-        
+    
         if self.__settingHandler:
             ## Check on Restrictions
             if self.__settingHandler.Restricted:

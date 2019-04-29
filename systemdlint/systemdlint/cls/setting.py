@@ -1,6 +1,6 @@
 class Setting(object):
 
-    def __init__(self, name=None, section=None, allowedValue=None, sinceRel=None, tillRel=None, requires=None, restricted=None):
+    def __init__(self, name=None, section=None, allowedValue=None, sinceRel=None, tillRel=None, requires=[], restricted=[]):
         self.Name = name
         self.Section = section
         self.AllowedValue = allowedValue

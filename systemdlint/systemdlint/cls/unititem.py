@@ -50,14 +50,14 @@ class UnitItem(object):
     
         if self.__settingHandler:
             ## Check on Restrictions
-            if self.__settingHandler.Restricted:
-                if self.__settingHandler.Restricted.Matches(stash, self):
-                    res.append(ErrorSettingRestricted(self.Key, self.__settingHandler.Restricted, self.Line, self.File))
+            for i in self.__settingHandler.Restricted:
+                if i.Matches(stash, self):
+                    res.append(ErrorSettingRestricted(self.Key, i, self.Line, self.File))
 
             ## Check on Required attributes
-            if self.__settingHandler.Requires:
-                if not self.__settingHandler.Requires.Matches(stash, self):
-                    res.append(ErrorSettingRequires(self.Key, self.__settingHandler.Requires, self.Line, self.File))
+            for i in self.__settingHandler.Requires:
+                if not i.Matches(stash, self):
+                    res.append(ErrorSettingRequires(self.Key, i, self.Line, self.File))
 
             if float(self.__settingHandler.TillRel) <= float(runargs.sversion):
                 res.append(ErrorDeprecated(self.Key, self.__settingHandler.TillRel, self.Line, self.File))

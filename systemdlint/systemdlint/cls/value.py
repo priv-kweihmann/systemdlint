@@ -173,7 +173,10 @@ class TimeValue(Value):
               }
         val = self.CleanValue(value)
         if not val.isnumeric():
-            for m in re.finditer("^((?P<val>\d+)\s*(?P<mul>\w+)\s*)+".format("|".join(_kv.keys())), val):
+            if val == "infinity":
+                ## All time values should accept 'infinity'
+                return True
+            for m in re.finditer(r"^((?P<val>\d+)\s*(?P<mul>\w+)\s*)+".format("|".join(_kv.keys())), val):
                 val = val.replace(m.group(0), "")
                 try:
                     mul = _kv[m.group("mul")]
@@ -289,8 +292,9 @@ class UrlListValue(Value):
         return res
 
 class UnitListValue(Value):
-    def __init__(self, requiredExt="", conditional={}):
+    def __init__(self, requiredExt="", inverseMode=False, conditional={}):
         self.__ext = requiredExt
+        self.__inverseMode = inverseMode
         super().__init__(conditional)
 
     def IsAllowedValue(self, value):
@@ -312,6 +316,11 @@ class UnitListValue(Value):
                         break
             if not found:
                 res.append(ErrorRefUnitNotFound(k, item.Line, item.File))
+        if self.__inverseMode:
+            ## Unit in Path must not reference other .path units
+            _, ext = os.path.splitext(self.CleanValue(value))
+            if ext == self.__ext:
+                res.append(ErrorInvalidValue(item.Key, value, item.Line, item.File))
         return list(set(res))
 
 class AbsolutePathListValue(Value):
@@ -320,6 +329,24 @@ class AbsolutePathListValue(Value):
 
     def IsAllowedValue(self, value):
         return any([os.path.isabs(self.CleanValue(x)) for x in value.split(" ") if x])
+
+class MountPathValue(Value):
+    def __init__(self, conditional={}):
+        super().__init__(conditional)
+
+    def IsAllowedValue(self, value):
+        return os.path.isabs(self.CleanValue(value))
+
+    def AdditionalErrors(self, value, item, args):
+        res = []
+        val = self.CleanValue(value).lstrip("/")
+        name, ext = os.path.splitext(os.path.basename(item.File))
+        name = name.lstrip("/")
+        cname = name.replace("-", "/")
+        if val != cname:
+            print("{} -- {}".format(val, cname))
+            res.append(ErrorMountUnitNaming(value.replace("-", "/"), item.File))
+        return res
 
 class KeyValuePairListValue(Value):
     def __init__(self, delimiter="=", conditional={}):

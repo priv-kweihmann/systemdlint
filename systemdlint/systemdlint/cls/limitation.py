@@ -1,16 +1,18 @@
 class Limitation(object):
 
-    def __init__(self, key=None, value=None):
+    def __init__(self, key=None, value=None, section=None, file=None):
         self.Key = key
         self.Value = value
+        self.Section = None
+        self.File = file
 
     def __repr__(self):
         return "{}={}".format(self.Key, self.Value)
     
     def Matches(self, stack, parent):
         for element in stack:
-            if element.File == parent.File and \
-               element.Section == parent.Section and \
+            if (element.File == parent.File or self.File == "ignore") and \
+               element.Section == (self.Section or parent.Section) and \
                element.Key == self.Key:
                if not self.Value:
                    ## Wildcard

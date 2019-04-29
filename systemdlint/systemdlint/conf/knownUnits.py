@@ -4,6 +4,7 @@ KNOWN_UNITS_EXT = [
     ".link",
     ".mount",
     ".network",
+    ".netdev",
     ".path",
     ".service",
     ".slice",

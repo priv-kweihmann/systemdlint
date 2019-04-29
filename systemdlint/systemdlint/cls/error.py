@@ -46,6 +46,10 @@ class ErrorUnitSectionMissing(Error):
     def __init__(self, file):
         super().__init__("error", "UnitSectionMissing", "[Unit]-Section is missing in file", 1, file)
 
+class ErrorMountUnitNaming(Error):
+    def __init__(self, correct, file):
+        super().__init__("error", "MountUnitNaming", "The mount unit should be named '{}.mount'".format(correct), 1, file)
+
 class ErrorRefUnitNotFound(Error):
     def __init__(self, unit, line, file):
         super().__init__("warning", "ReferencedUnitNotFound", "The Unit '{}' referenced was not found in filesystem".format(unit), line, file)

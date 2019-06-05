@@ -102,3 +102,17 @@ class ErrorExecNotFound(Error):
 
     def __init__(self, line, file):
         super().__init__("error", "ExecNotFound", "Command referenced not found", line, file)
+
+class ErrorMultiplicity(Error):
+
+    def __init__(self, msg, line, file):
+        super().__init__("error", "Multiplicity", msg, line, file)
+
+class ErrorConflictingOptions(Error):
+
+    def __init__(self, msg, line, file):
+        super().__init__("warning", "ConflictingOptions", msg, line, file)
+
+class ErrorCyclicDependency(Error):
+    def __init__(self, depchain, line, file):
+        super().__init__("error", "ErrorCyclicDependency", "Unit creates a cyclic dependency. Chain is {}".format("->".join(depchain)), line, file)

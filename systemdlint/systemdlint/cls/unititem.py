@@ -1,3 +1,4 @@
+import os
 from systemdlint.conf.knownSettings import KNOWN_SETTINGS
 from systemdlint.cls.limitation import Limitation
 from systemdlint.cls.error import *
@@ -9,9 +10,15 @@ class UnitItem(object):
         self.Value = value
         self.Key = key
         self.Section = section
+        self.UnitName = self.__getUnitName()
         self.__settingHandler = None
         self.__preerror = preerror
 
+    def __getUnitName(self):
+        if self.File.endswith(".conf"):
+            return ''.join(os.path.basename(os.path.dirname(self.File)).rsplit('.d', 1))
+        else:
+            return os.path.basename(self.File)
     def __repr__(self):
         return "{}{}{}{}{}".format(self.File, self.Line, self.Value, self.Key, self.Section)
 
@@ -33,6 +40,12 @@ class UnitItem(object):
                item.Name == self.Key:
                return item
         return None
+
+    def RunDropInProcessor(self, stash):
+        self.__settingHandler = self.__getMatchingItem(sversion=runargs.sversion)
+        if not self.__settingHandler:
+            return stash
+        return self.__settingHandler.DropinProc().Run(self, stash)
 
     def Validate(self, runargs, stash):
         res = []
@@ -59,9 +72,9 @@ class UnitItem(object):
                 if not i.Matches(stash, self):
                     res.append(ErrorSettingRequires(self.Key, i, self.Line, self.File))
 
-            if float(self.__settingHandler.TillRel) <= float(runargs.sversion):
+            if float(self.__settingHandler.TillRel) < float(runargs.sversion):
                 res.append(ErrorDeprecated(self.Key, self.__settingHandler.TillRel, self.Line, self.File))
-            if float(self.__settingHandler.SinceRel) >= float(runargs.sversion):
+            if float(self.__settingHandler.SinceRel) > float(runargs.sversion):
                 res.append(ErrorTooNewOption(self.Key, self.__settingHandler.SinceRel, self.Line, self.File))
         return res
         

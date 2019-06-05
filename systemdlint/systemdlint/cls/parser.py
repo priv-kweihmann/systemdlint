@@ -5,6 +5,8 @@ from systemdlint.cls.unittype import GetDropinPaths
 from systemdlint.cls.error import *
 from systemdlint.conf.knownMandatory import KNOWN_MANDATORY
 from systemdlint.conf.knownUnits import KNOWN_UNITS_MUST_HAVE_UNITSECTION, KNOWN_UNITS_EXT
+from systemdlint.cls.specials import SPECIALS_SINGLEITEM
+from systemdlint.cls.specials import SPECIALS_ALLITEMS
 from configparser import MissingSectionHeaderError, ParsingError
 import glob
 import os
@@ -69,16 +71,24 @@ class Parser(object):
                 for f in glob.glob(p):
                     d_res = self.__parseFile(f)
                     for item in d_res:
-                        # for r_key in [x for x in res if x.Section == item.Section and x.Key == item.Key]:
-                        #     res.remove(r_key)
-                        res.append(item)
+                        res = item.RunDropInProcessor(res)
 
         for k,v in KNOWN_MANDATORY.items():
             if k in dict(__x).keys():
                 for opt in v:
                     if not any([x for x in res if x.Section == k and x.Key == opt]):
                         res.append(UnitItem(file=file, preerror=[ErrorMandatoryOptionMissing(opt, k, file)]))
+
+        for k in SPECIALS_SINGLEITEM:
+            ## Catch all the special cases
+            res = k.Run(res)
+            
         return list(set(res))
 
+    def GlobalValidate(self):
+        for s in SPECIALS_ALLITEMS:
+            self.__unititems = s.Run(list(set(self.__unititems)))
+
     def GetResults(self):
+        self.GlobalValidate()
         return list(set(self.__unititems))

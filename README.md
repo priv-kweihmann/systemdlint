@@ -36,12 +36,14 @@ example:
 
 # Detectable Errors
 
+ * ConflictingOptions - The set option somehwo is in conflict with another unit
  * ExecNotFound - The referenced executable was not found on system
  * FullPrivileges - An executable is run with full priviledges
  * InvalidNumericBase - A numeric value doesn't match because it needs to be a multiple of X
  * InvalidSetting - The option doesn't match the section
  * InvalidValue - An invalid value is set
  * MandatoryOptionMissing - A mandatory option was missing in the file
+ * Multiplicity - The option is not valid for the given amount of options in this context
  * NoExecutable - The referenced executable is NOT executable
  * NoFailureCheck - An executable is run without checking for failures 
  * OptionDeprecated - The used option is not available anymore in this version

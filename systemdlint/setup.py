@@ -1,16 +1,15 @@
 import setuptools
 
 with open("../README.md", "r") as fh:
-    long_description = fh.read()
+    long_description = "See https://github.com/priv-kweihmann/systemdlint for documentation"
 
 setuptools.setup(
     name="systemdlint",
-    version="1.0.1",
+    version="1.0.2",
     author="Konrad Weihmann",
     author_email="kweihmann@outlook.com",
     description="Systemd Unitfile Linter",
     long_description=long_description,
-    long_description_content_type="text/markdown",
     url="https://github.com/priv-kweihmann/systemdlint",
     packages=setuptools.find_packages(),
     install_requires=[

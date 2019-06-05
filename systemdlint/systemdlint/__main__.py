@@ -1,8 +1,8 @@
 from systemdlint.cls.parser import Parser
-from systemdlint.cls.runargs import ArgumentParser
+from systemdlint.cls.runargs import ArgParser
 
 if __name__ == '__main__':
-    runargs = ArgumentParser()
+    runargs = ArgParser()
     _parser = Parser(runargs, runargs.files)
     _errors = []
     _stash = _parser.GetResults()

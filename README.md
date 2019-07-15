@@ -24,7 +24,7 @@ optional arguments:
 
 The tool will return 
 
-    {file}:{line}:{severity} \[{id}\] - {message}
+    {file}:{line}:{severity} [{id}] - {message}
 
 example:
 ```
@@ -36,7 +36,7 @@ example:
 
 # Detectable Errors
 
- * ConflictingOptions - The set option somehwo is in conflict with another unit
+ * ConflictingOptions - The set option somehow is in conflict with another unit
  * ExecNotFound - The referenced executable was not found on system
  * FullPrivileges - An executable is run with full priviledges
  * InvalidNumericBase - A numeric value doesn't match because it needs to be a multiple of X

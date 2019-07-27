@@ -5,7 +5,7 @@ with open("../README.md", "r") as fh:
 
 setuptools.setup(
     name="systemdlint",
-    version="1.0.2",
+    version="1.0.3",
     author="Konrad Weihmann",
     author_email="kweihmann@outlook.com",
     description="Systemd Unitfile Linter",
@@ -14,6 +14,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     install_requires=[
         'systemdunitparser>=0.1',
+        'anytree>=2.6.0',
     ],
     scripts=['bin/systemdlint'],
     classifiers=[

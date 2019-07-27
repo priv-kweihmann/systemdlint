@@ -1,7 +1,13 @@
 import setuptools
 
-with open("../README.md", "r") as fh:
-    long_description = "See https://github.com/priv-kweihmann/systemdlint for documentation"
+import subprocess
+_long_description = "See https://github.com/priv-kweihmann/systemdlint for documentation"
+_long_description_content_type = "text/plain"
+try:
+    _long_description = subprocess.check_output(["pandoc", "--from", "markdown", "--to", "rst", "../README.md"]).decode("utf-8")
+    _long_description_content_type = "text/x-rst"
+except subprocess.CalledProcessError:
+    pass
 
 setuptools.setup(
     name="systemdlint",
@@ -9,7 +15,8 @@ setuptools.setup(
     author="Konrad Weihmann",
     author_email="kweihmann@outlook.com",
     description="Systemd Unitfile Linter",
-    long_description=long_description,
+    long_description=_long_description,
+    long_description_content_type=_long_description_content_type,
     url="https://github.com/priv-kweihmann/systemdlint",
     packages=setuptools.find_packages(),
     install_requires=[

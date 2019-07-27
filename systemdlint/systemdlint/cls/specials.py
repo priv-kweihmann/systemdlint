@@ -53,7 +53,7 @@ class SpecialRestartAlwaysConflicts(object):
             conflicts = [x for x in stash if x.Key == "Conflicts" and x.Value == r.UnitName]
             for c in conflicts:
                 stash.append(UnitItem(file=c.File, line=c.Line, 
-                        preerror=[ErrorConflictingOptions("Conflicts={} does not terminate the unit, because it has set Restart=always", c.Line, c.File)]))
+                        preerror=[ErrorConflictingOptions("Conflicts={} does not terminate the unit, because it has set Restart=always".format(c.Value), c.Line, c.File)]))
         return stash
 
 class SpecialDepCycle(object):

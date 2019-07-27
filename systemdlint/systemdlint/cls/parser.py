@@ -26,7 +26,7 @@ class Parser(object):
                 if not l:
                     continue
                 if all([l.find(x) != -1 for x in needles]):
-                    return lines.index(l)
+                    return lines.index(l) + 1
         return -1
 
     def __parseFile(self, file, runargs):

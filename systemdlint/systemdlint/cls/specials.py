@@ -1,5 +1,7 @@
 from systemdlint.cls.error import *
 from systemdlint.cls.unititem import UnitItem
+import re
+from anytree import Node, LoopError, TreeError
 
 class SpecialTypeOneShotExecStart(object):
     def Run(self, stash):
@@ -28,10 +30,67 @@ class SpecialRestartAlwaysConflicts(object):
                         preerror=[ErrorConflictingOptions("Conflicts={} does not terminate the unit, because it has set Restart=always", c.Line, c.File)]))
         return stash
 
+class SpecialDepCycle(object):
+    def __getNodeFromException(self, msg):
+        m = re.match(r"^.*Node\(\'(?P<path>.*)\'\)\.$", msg)
+        if m:
+            return [x for x in m.group("path").split("/") if x]
+        return []
+
+    def __buildTree(self, stash):
+        _nodes = []
+        for x in [x for x in stash if x.Key in ["After"]]:
+            _n = None
+            _m = None
+            try:
+                _t = [y for y in _nodes if y.name == x.Value]
+                if not any(_t):
+                    _n = Node(x.Value)
+                    _nodes.append(_n)
+                else:
+                    _n = _t[0]
+                _t = [y for y in _nodes if y.name == x.UnitName]
+                if not any(_t):
+                    _m = Node(x.UnitName)
+                    _nodes.append(_m)
+                else:
+                    _m = _t[0]
+                if not _m in _n.children:
+                    _n.children += (_m,)
+            except LoopError as e:
+                _path = self.__getNodeFromException(str(e)) + [x.UnitName]
+                stash.append(UnitItem(file=x.File, line=x.Line, preerror=[ErrorCyclicDependency(_path, x.Line, x.File)]))
+        for x in [x for x in stash if x.Key in ["Before"]]:
+            try:
+                _n = None
+                _t = [y for y in _nodes if y.name == x.UnitName]
+                if not any(_t):
+                    _n = Node(x.UnitName)
+                    _nodes.append(_n)
+                else:
+                    _n = _t[0]
+                _t = [y for y in _nodes if y.name == x.Value]
+                _m = None
+                if not any(_t):
+                    _m = Node(x.Value)
+                    _nodes.append(_m)
+                else:
+                    _m = _t[0]
+                if not _m in _n.children:
+                    _n.children += (_m,)
+            except LoopError as e:
+                _path = [x.UnitName] + self.__getNodeFromException(str(e))
+                stash.append(UnitItem(file=x.File, line=x.Line, preerror=[ErrorCyclicDependency(_path, x.Line, x.File)]))
+        return stash
+
+    def Run(self, stash):
+        return self.__buildTree(stash)
+
 SPECIALS_SINGLEITEM = [
     SpecialTypeOneShotExecStart()
 ]
 
 SPECIALS_ALLITEMS = [
     SpecialRestartAlwaysConflicts(),
+    SpecialDepCycle(),
 ]

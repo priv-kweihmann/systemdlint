@@ -255,13 +255,13 @@ class EnumValue(EnumListValue):
 
 class SignalValue(EnumListValue):
     def __init__(self, conditional={}):
-        signals = [str(x) for x in range(0, 60)]
+        signals = [str(x) for x in range(0, 60)] + ["65"]
         signals +=  ["SIGHUP", "SIGINT", "SIGQUIT", "SIGILL", "SIGABRT", "SIGFPE", \
                     "SIGKILL", "SIGSEGV", "SIGPIPE", "SIGALRM", "SIGTERM", "SIGUSR1", "SIGUSR2", \
                     "SIGCHLD", "SIGCONT", "SIGSTOP", "SIGTSTP", "SIGTTIN", "SIGTTOU", "SIGBUS", \
                     "SIGPOLL", "SIGPROF", "SIGSYS", "SIGTRAP", "SIGURG", "SIGVTALRM", "SIGXCPU", \
                     "SIGXFSZ", "SIGIOT", "SIGEMT", "SIGSTKFLT", "SIGIO", "SIGCLD", "SIGPWR", "SIGINFO", \
-                    "SIGLOST", "SIGWINCH", "SIGUNUSED"]
+                    "SIGLOST", "SIGWINCH", "SIGUNUSED", "DATAERR"]
         super().__init__(signals, conditional)
 
 class OctalModeValue(Value):

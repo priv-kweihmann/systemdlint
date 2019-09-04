@@ -11,7 +11,7 @@ except subprocess.CalledProcessError:
 
 setuptools.setup(
     name="systemdlint",
-    version="1.1.0",
+    version="1.1.1",
     author="Konrad Weihmann",
     author_email="kweihmann@outlook.com",
     description="Systemd Unitfile Linter",

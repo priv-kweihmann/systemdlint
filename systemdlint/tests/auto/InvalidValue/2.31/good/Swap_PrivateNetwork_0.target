@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Swap]
+PrivateNetwork=0
+

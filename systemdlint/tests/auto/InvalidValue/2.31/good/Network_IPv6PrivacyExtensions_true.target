@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Network]
+IPv6PrivacyExtensions=true
+

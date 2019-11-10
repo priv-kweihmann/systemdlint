@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Socket]
+LimitMSGQUEUE=9999999999999
+

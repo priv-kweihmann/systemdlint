@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Bond]
+MinLinks=-1
+

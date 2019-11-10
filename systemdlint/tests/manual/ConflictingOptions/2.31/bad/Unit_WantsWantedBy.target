@@ -1,0 +1,4 @@
+[Unit]
+Description=Before and After
+Wants=foo.service
+WantedBy=foo.service

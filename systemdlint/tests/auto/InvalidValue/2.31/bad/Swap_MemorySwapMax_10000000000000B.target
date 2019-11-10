@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Swap]
+MemorySwapMax=10000000000000B
+

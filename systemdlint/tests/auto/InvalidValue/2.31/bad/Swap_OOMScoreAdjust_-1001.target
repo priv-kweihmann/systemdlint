@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Swap]
+OOMScoreAdjust=-1001
+

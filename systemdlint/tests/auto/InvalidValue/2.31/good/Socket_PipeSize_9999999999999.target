@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Socket]
+PipeSize=9999999999999
+

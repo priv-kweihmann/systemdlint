@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Swap]
+DefaultMemoryMin=10000000000000T
+

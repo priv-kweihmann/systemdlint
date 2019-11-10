@@ -1,0 +1,6 @@
+[Unit]
+Description=Foo
+[L2TPSession]
+Name=abc
+Layer2SpecificHeader=none
+

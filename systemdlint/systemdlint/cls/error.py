@@ -59,7 +59,6 @@ class ErrorMandatoryOptionMissing(Error):
         super().__init__("error", "MandatoryOptionMissing", "Mandatory option '{}' is missing in section [{}]".format(option, section), 1, file)
 
 class ErrorInvalidValue(Error):
-
     def __init__(self, object, value, line, file):
         super().__init__("error", "InvalidValue", "{}={}".format(object, value), line, file)
 
@@ -80,7 +79,7 @@ class ErrorSettingRestricted(Error):
 
 class ErrorInvalidSetting(Error):
 
-    def __init__(sef, object, section, line, file):
+    def __init__(self, object, section, line, file):
         super().__init__("error", "InvalidSetting", "{} is not supported in section {}".format(object, section), line, file)
 
 class ErrorCommandCouldFail(Error):

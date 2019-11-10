@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Socket]
+MaxConnectionsPerSource=0
+

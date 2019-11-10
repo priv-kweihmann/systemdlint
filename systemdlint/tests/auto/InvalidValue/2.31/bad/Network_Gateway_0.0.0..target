@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Network]
+Gateway=0.0.0.
+

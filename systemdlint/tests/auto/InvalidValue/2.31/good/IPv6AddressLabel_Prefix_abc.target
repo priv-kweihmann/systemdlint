@@ -1,0 +1,7 @@
+[Unit]
+Description=Foo
+[IPv6AddressLabel]
+Label=abc
+Prefix=abc
+Prefix=abc
+

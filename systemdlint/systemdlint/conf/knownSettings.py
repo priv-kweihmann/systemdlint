@@ -707,7 +707,7 @@ KNOWN_SETTINGS = [
     Setting(section="Service", name="RuntimeDirectoryPreserve", allowedValue=EitherValue(args=[BooleanValue(), EnumValue(["restart"])]), sinceRel="2.35"),
     Setting(section="Service", name="RuntimeMaxSec", allowedValue=TimeValue(), sinceRel="2.29" ),
     Setting(section="Service", name="SELinuxContext", allowedValue=TextValue(conditional={"-": "ErrorCommandCouldFail"}) ),
-    Setting(section="Service", name="SecureBits", allowedValue=EnumValue(["keep-caps", "keep-caps-locked", "no-setuid-fixup", "no-setuid-fixup-locked"," noroot", "noroot-locked"]) ),
+    Setting(section="Service", name="SecureBits", allowedValue=EnumValue(["keep-caps", "keep-caps-locked", "no-setuid-fixup", "no-setuid-fixup-locked","noroot", "noroot-locked"]) ),
     Setting(section="Service", name="SendSIGHUP", allowedValue=BooleanValue() ),
     Setting(section="Service", name="SendSIGKILL", allowedValue=BooleanValue() ),
     Setting(section="Service", name="Slice", allowedValue=UnitListValue(requiredExt=".slice") ),
@@ -1327,3 +1327,39 @@ KNOWN_SETTINGS = [
     Setting(section="WireGuardPeer", name="PublicKey", allowedValue=TextValue() ),
     ##Setting(section="Unit", name="FooOption", allowedValue=NumericValue(), sinceRel="10.00" ), ## FIXME Fake setting
 ]
+
+from systemdlint.cls.test import *
+
+def getTests(outputPath):
+    import os
+    res = []
+    for _s in KNOWN_SETTINGS:
+        t = TestErrorDeprecated(_s)
+        res += t.GetTests()
+        t = TestErrorInvalidValue(_s)
+        res += t.GetTests()
+        t = TestErrorTooNewOption(_s)
+        res += t.GetTests()
+        t = TestErrorInvalidNumericBase(_s)
+        res += t.GetTests()
+        t = TestErrorSettingRequires(_s)
+        res += t.GetTests()
+        t = TestErrorSettingRestricted(_s)
+        res += t.GetTests()
+    # Now the parts that are setting unspecific
+    t = TestErrorUnknownUnitType(KNOWN_SETTINGS[0])
+    res += t.GetTests()
+    t = TestErrorSyntaxError(KNOWN_SETTINGS[0])
+    res += t.GetTests()
+    t = TestErrorUnitSectionMissing(KNOWN_SETTINGS[0])
+    res += t.GetTests()
+    t = TestErrorMandatoryOptionMissing(None)
+    res += t.GetTests()
+    for s in res:
+        try:
+            _path = os.path.join(outputPath, s[0])
+            os.makedirs(os.path.dirname(_path), exist_ok=True)
+            with open(_path, "w") as o:
+                o.write(s[1])
+        except:
+            pass

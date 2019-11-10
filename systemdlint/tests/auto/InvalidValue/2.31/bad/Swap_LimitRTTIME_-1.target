@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Swap]
+LimitRTTIME=-1
+

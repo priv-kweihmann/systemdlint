@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Service]
+MemorySwapMax=9999999999999B
+

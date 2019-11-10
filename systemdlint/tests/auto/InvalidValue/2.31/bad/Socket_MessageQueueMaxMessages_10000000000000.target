@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Socket]
+MessageQueueMaxMessages=10000000000000
+

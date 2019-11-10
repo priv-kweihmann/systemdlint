@@ -1,0 +1,7 @@
+[Unit]
+Description=Foo
+[Mount]
+What=abc
+Where=/tmp
+CPUQuotaPeriodSec=1years 2months 3days 4hours 5min 30usec
+

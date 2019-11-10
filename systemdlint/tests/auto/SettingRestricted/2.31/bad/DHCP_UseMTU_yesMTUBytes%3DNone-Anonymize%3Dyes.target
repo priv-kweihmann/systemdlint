@@ -1,0 +1,6 @@
+[Unit]
+Description=Foo
+[DHCP]
+UseMTU=yes
+MTUBytes=None
+Anonymize=yes

@@ -1,0 +1,6 @@
+[Unit]
+Description=Foo
+[Socket]
+ListenUSBFunction=abc
+USBFunctionDescriptors=None
+USBFunctionStrings=None

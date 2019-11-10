@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Service]
+LockPersonality=0
+

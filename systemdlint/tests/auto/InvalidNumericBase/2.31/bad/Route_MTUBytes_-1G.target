@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Route]
+MTUBytes=-1G
+

@@ -1,0 +1,7 @@
+[Unit]
+Description=multi ExecStart
+
+[Service]
+Type=simple
+ExecStart=/bin/busybox
+ExecStart=/bin/busybox -v

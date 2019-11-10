@@ -1,0 +1,7 @@
+[Unit]
+Description=Foo
+[Mount]
+What=abc
+Where=/tmp
+BlockIOReadBandwidthMax=dev/foo -1B
+

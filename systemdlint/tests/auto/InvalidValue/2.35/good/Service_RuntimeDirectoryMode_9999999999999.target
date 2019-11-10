@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Service]
+RuntimeDirectoryMode=9999999999999
+

@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Network]
+Gateway=-1.1.1.1
+

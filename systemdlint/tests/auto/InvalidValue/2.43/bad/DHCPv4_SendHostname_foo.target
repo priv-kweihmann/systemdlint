@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[DHCPv4]
+SendHostname=foo
+

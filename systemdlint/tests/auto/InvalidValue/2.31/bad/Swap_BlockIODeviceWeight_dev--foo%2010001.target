@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Swap]
+BlockIODeviceWeight=dev/foo 10001
+

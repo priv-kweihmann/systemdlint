@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Socket]
+BlockIODeviceWeight=/dev/bar 10000
+

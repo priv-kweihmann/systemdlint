@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Network]
+DNS=255.255.255.255/32
+

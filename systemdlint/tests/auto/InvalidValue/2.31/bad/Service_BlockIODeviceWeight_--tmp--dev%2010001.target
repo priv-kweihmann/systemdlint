@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Service]
+BlockIODeviceWeight=/tmp/dev 10001
+

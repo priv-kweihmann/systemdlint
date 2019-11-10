@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Socket]
+IPAddressAllow=256.255.255.255
+

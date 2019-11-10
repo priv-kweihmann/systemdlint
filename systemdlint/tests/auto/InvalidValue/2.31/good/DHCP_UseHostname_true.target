@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[DHCP]
+UseHostname=true
+

@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Network]
+DNS=0.0.0.
+

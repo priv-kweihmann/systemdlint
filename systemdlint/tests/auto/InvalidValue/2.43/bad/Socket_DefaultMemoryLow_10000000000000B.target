@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Socket]
+DefaultMemoryLow=10000000000000B
+

@@ -2,6 +2,13 @@
 
 Systemd Unitfile Linter
 
+
+## Status
+
+| Build                                                                                                                                                    | PyPi                                                                                            |
+|----------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|
+| ![Build status](https://github.com/priv-kweihmann/systemdlint/workflows/Build/badge.svg) | [![PyPI version](https://badge.fury.io/py/systemdlint.svg)](https://badge.fury.io/py/systemdlint) |
+
 ## Usage
 
 ```sh
@@ -42,6 +49,7 @@ example:
 ## Detectable Errors
 
 * ConflictingOptions - The set option somehow is in conflict with another unit
+* ErrorCyclicDependency - Unit creates a cyclic dependency
 * ExecNotFound - The referenced executable was not found on system
 * FullPrivileges - An executable is run with full privileges
 * InvalidNumericBase - A numeric value doesn't match because it needs to be a multiple of X
@@ -60,4 +68,3 @@ example:
 * UnitSectionMissing - The Unit-section is missing in the file
 * UnknownUnitType - The file extension of the file is not a known systemd one
 * WrongFileMask - The file has a risky filemode set
-* ErrorCyclicDependency - Unit creates a cyclic dependency

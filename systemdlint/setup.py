@@ -11,7 +11,7 @@ except (subprocess.CalledProcessError, FileNotFoundError):
 
 setuptools.setup(
     name="systemdlint",
-    version="1.1.1",
+    version="1.1.2",
     author="Konrad Weihmann",
     author_email="kweihmann@outlook.com",
     description="Systemd Unitfile Linter",

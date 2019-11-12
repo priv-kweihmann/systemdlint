@@ -1,6 +1,0 @@
-[Unit]
-Description=Foo
-[Link]
-MACAddress=abc
-MTUBytes=1024
-

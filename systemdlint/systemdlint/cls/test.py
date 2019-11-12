@@ -130,10 +130,10 @@ class TestErrorInvalidNumericBase(Test):
         res = []
         if isinstance(self.setting.AllowedValue, NumericValue):
             if self.setting.AllowedValue.Base != 1:
-                for x in self.setting.AllowedValue.GetAllowedValues():
+                for x in self.setting.AllowedValue.GetAllowedValues(baseOnly=True):
                     res.append((self.GetTestFileName(x, 0),
                                 self.GetTestFileContent(x)))
-                for x in self.setting.AllowedValue.GetInvalidValues():
+                for x in self.setting.AllowedValue.GetInvalidValues(baseOnly=True):
                     res.append((self.GetTestFileName(x, 1),
                                 self.GetTestFileContent(x)))
         return res

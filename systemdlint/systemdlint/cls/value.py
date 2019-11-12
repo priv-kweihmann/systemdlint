@@ -108,28 +108,32 @@ class NumericValue(Value):
             print(str(e))
         return res
     
-    def GetAllowedValues(self):
+    def GetAllowedValues(self, baseOnly=False):
         res = []
         _suffixess = self.__suffixes or [""]
-        for x in _suffixess:
-            res.append("{}{}".format(self.__boundaries[0], x))
-            res.append("{}{}".format(self.__boundaries[-1], x))
-        for x in self.__specials:
-            res.append(x)
-        if self.Base != 1:
-            for i in range(self.Base, self.Base * 10, self.Base):
-                res.append(i)
+        if not baseOnly:
+            for x in _suffixess:
+                res.append("{}{}".format(self.__boundaries[0], x))
+                res.append("{}{}".format(self.__boundaries[-1], x))
+            for x in self.__specials:
+                res.append(x)
+        else:
+            if self.Base != 1:
+                for i in range(self.Base, self.Base * 10, self.Base):
+                    res.append(i)
         return res
     
-    def GetInvalidValues(self):
+    def GetInvalidValues(self, baseOnly=False):
         res = []
         _suffixess = self.__suffixes or [""]
-        for x in _suffixess:
-            res.append("{}{}".format(self.__boundaries[0] - 1, x))
-            res.append("{}{}".format(self.__boundaries[-1] + 1, x))
-        if self.Base != 1:
-            for i in range(self.Base, self.Base * 10, self.Base):
-                res.append(i + 1)
+        if not baseOnly:
+            for x in _suffixess:
+                res.append("{}{}".format(self.__boundaries[0] - 1, x))
+                res.append("{}{}".format(self.__boundaries[-1] + 1, x))
+        else:
+            if self.Base != 1:
+                for i in range(self.Base, self.Base * 10, self.Base):
+                    res.append(i + 1)
         return res
 
 class TextValue(Value):

@@ -1,6 +1,0 @@
-[Unit]
-Description=Foo
-[NetDev]
-Name=abc
-MTUBytes=10000000000000K
-

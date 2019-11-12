@@ -1,5 +1,0 @@
-[Unit]
-Description=Foo
-[CAN]
-Bitrate=9999999999999M
-

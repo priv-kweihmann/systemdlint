@@ -5,9 +5,9 @@ Systemd Unitfile Linter
 
 ## Status
 
-| Build                                                                                                                                                    | PyPi                                                                                            |
-|----------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|
-| ![Build status](https://github.com/priv-kweihmann/systemdlint/workflows/Build/badge.svg) | [![PyPI version](https://badge.fury.io/py/systemdlint.svg)](https://badge.fury.io/py/systemdlint) |
+| Build                                                                                                                                                    | PyPi                                                                                              | Python versions                                                                                                             |
+|----------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
+| ![Build status](https://github.com/priv-kweihmann/systemdlint/workflows/Build/badge.svg)                                                                 | [![PyPI version](https://badge.fury.io/py/systemdlint.svg)](https://badge.fury.io/py/systemdlint) | [![Python version](https://img.shields.io/pypi/pyversions/systemdlint)](https://img.shields.io/pypi/pyversions/systemdlint) |
 
 ## Usage
 

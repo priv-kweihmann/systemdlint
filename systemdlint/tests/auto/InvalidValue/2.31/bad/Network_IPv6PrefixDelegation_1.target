@@ -1,5 +1,0 @@
-[Unit]
-Description=Foo
-[Network]
-IPv6PrefixDelegation=1
-

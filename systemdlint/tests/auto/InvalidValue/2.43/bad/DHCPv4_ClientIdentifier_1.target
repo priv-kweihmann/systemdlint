@@ -1,5 +1,0 @@
-[Unit]
-Description=Foo
-[DHCPv4]
-ClientIdentifier=1
-

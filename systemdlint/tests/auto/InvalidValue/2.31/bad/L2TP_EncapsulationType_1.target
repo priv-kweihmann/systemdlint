@@ -1,5 +1,0 @@
-[Unit]
-Description=Foo
-[L2TP]
-EncapsulationType=1
-

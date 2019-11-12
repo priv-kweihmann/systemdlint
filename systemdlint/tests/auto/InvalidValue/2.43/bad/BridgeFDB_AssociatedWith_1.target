@@ -1,6 +1,0 @@
-[Unit]
-Description=Foo
-[BridgeFDB]
-MACAddress=abc
-AssociatedWith=1
-

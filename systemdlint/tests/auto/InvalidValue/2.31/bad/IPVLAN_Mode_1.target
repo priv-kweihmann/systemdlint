@@ -1,5 +1,0 @@
-[Unit]
-Description=Foo
-[IPVLAN]
-Mode=1
-

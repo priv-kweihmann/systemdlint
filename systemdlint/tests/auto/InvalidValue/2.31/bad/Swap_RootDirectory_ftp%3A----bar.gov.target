@@ -1,5 +1,0 @@
-[Unit]
-Description=Foo
-[Swap]
-RootDirectory=ftp://bar.gov
-

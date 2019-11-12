@@ -1,5 +1,0 @@
-[Unit]
-Description=Foo
-[Bond]
-LACPTransmitRate=True
-

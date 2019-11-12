@@ -1,5 +1,0 @@
-[Unit]
-Description=Foo
-[Swap]
-RootDirectory=http://foo.org
-

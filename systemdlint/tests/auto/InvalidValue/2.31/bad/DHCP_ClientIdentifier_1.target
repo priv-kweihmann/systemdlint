@@ -1,5 +1,0 @@
-[Unit]
-Description=Foo
-[DHCP]
-ClientIdentifier=1
-

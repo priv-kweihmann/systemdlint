@@ -1,5 +1,0 @@
-[Unit]
-Description=Foo
-[Socket]
-RootDirectory=http://foo.org
-

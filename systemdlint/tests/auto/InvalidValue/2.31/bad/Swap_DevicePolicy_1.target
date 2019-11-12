@@ -1,5 +1,0 @@
-[Unit]
-Description=Foo
-[Swap]
-DevicePolicy=1
-

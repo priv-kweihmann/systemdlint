@@ -1,5 +1,0 @@
-[Unit]
-Description=Foo
-[Login]
-HandlePowerKey=1
-

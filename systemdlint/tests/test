@@ -4,6 +4,7 @@ import os
 import subprocess
 import re
 import sys
+from multiprocessing import Pool, cpu_count
 
 _basepath = os.path.dirname(os.path.abspath(__file__))
 _bindir = os.path.abspath(os.path.join(_basepath, "..", "bin"))
@@ -12,21 +13,15 @@ _modpath = os.path.abspath(os.path.join(_basepath, ".."))
 os.environ["PYTHONPATH"] = "{}:{}".format(_modpath, os.environ.get("PYTHONPATH", ""))
 os.environ["PATH"] = "{}:{}".format(_bindir, os.environ.get("PATH", ""))
 
-_overallGood = True
-for _file in glob.glob(_basepath + "/**/*", recursive=True):
-    if not os.path.isfile(_file) or _file == os.path.abspath(__file__):
-        continue
+def run_tc(_file):
+    tc_good = True
     _chunks = _file.split("/")
     _testfile = _chunks[-1]
     _result = _chunks[-2]
     _version = _chunks[-3]
     _errorID = _chunks[-4]
     _path = _chunks[-5]
-
-    if _file.startswith(os.path.join(_basepath, "workspace")):
-        continue
-
-    print("Testing: {}:{}@{} expect to be {} ...".format(_errorID, _testfile, _version, _result) ,end='')
+    _preamble = "Testing: {}:{}@{} expect to be {} ...".format(_errorID, _testfile, _version, _result)
     _cmdout = ""
     _args = ["systemdlint", "--sversion={}".format(_version)]
     _workspace = os.path.join(_basepath, "workspace", _errorID, _version, _result, _testfile)
@@ -58,23 +53,36 @@ for _file in glob.glob(_basepath + "/**/*", recursive=True):
     _matches = re.finditer(r"^.*\[{}\].*".format(_errorID), _cmdout.decode("utf-8"), re.MULTILINE)
     if _result == "good":
         if not any(_matches):
-            print("[PASSED]")
+            print("{}[PASSED]".format(_preamble))
         else:
-            print("[FAILED]")
+            print("{}[FAILED]".format(_preamble))
             print("#######################")
-            print(_cmdout)
+            print(_cmdout.decode("utf-8"))
             print("#######################")
-            _overallGood = False
+            tc_good = False
     else:
         if any(_matches):
-            print("[PASSED]")
+            print("{}[PASSED]".format(_preamble))
         else:
-            print("[FAILED]")
+            print("{}[FAILED]".format(_preamble))
             print("#######################")
-            print(_cmdout)
+            print(_cmdout.decode("utf-8"))
             print("#######################")
-            _overallGood = False
+            tc_good = False
+    return tc_good
 
-if not _overallGood:
+_files = []
+for _file in glob.glob(_basepath + "/**/*", recursive=True):
+    if not os.path.isfile(_file) or _file == os.path.abspath(__file__):
+        continue
+    if _file.startswith(os.path.join(_basepath, "workspace")):
+        continue
+    _files.append(_file)
+
+## Run in pool
+p = Pool(processes=cpu_count() * 2)
+_map = p.map(run_tc, _files)
+
+if not all([x for x in _map]):
     sys.exit(1)
 sys.exit(0)

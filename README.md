@@ -32,7 +32,7 @@ optional arguments:
 The tool will return
 
 ```sh
-    {file}:{line}:{severity} \[{id}\] - {message}
+{file}:{line}:{severity} [{id}] - {message}
 ```
 
 example:

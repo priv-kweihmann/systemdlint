@@ -7,6 +7,5 @@ KNOWN_MANDATORY = {
     "NetDev": ["Name"],
     "L2TPSession": ["Name"],
     "Peer": ["Name"],
-    "VXCAN": ["Name"],
     "IPv6AddressLabel": ["Label", "Prefix"]
 }

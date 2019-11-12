@@ -1,5 +1,0 @@
-[Unit]
-Description=Foo
-[Service]
-TimeoutAbortSec=7seconds
-

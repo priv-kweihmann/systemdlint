@@ -1,5 +1,0 @@
-[Unit]
-Description=Foo
-[Swap]
-LogRateLimitIntervalSec=18year
-

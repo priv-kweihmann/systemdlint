@@ -1,5 +1,0 @@
-[Unit]
-Description=Foo
-[Login]
-IdleActionSec=17minutes
-

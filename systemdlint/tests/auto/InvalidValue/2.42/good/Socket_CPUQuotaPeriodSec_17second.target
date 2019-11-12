@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Socket]
+CPUQuotaPeriodSec=17second
+

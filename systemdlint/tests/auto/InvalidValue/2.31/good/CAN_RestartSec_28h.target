@@ -1,5 +1,0 @@
-[Unit]
-Description=Foo
-[CAN]
-RestartSec=28h
-

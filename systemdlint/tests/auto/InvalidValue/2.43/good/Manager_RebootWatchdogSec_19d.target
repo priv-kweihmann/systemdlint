@@ -1,5 +1,0 @@
-[Unit]
-Description=Foo
-[Manager]
-RebootWatchdogSec=19d
-

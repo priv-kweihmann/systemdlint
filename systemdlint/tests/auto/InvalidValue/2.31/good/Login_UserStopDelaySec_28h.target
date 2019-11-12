@@ -1,5 +1,0 @@
-[Unit]
-Description=Foo
-[Login]
-UserStopDelaySec=28h
-

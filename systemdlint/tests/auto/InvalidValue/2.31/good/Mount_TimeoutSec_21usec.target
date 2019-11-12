@@ -1,7 +1,0 @@
-[Unit]
-Description=Foo
-[Mount]
-What=abc
-Where=/tmp
-TimeoutSec=21usec
-

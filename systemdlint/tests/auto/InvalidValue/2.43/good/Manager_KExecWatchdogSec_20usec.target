@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Manager]
+KExecWatchdogSec=20usec
+

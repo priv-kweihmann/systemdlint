@@ -1,5 +1,0 @@
-[Unit]
-Description=Foo
-[Timer]
-OnUnitActiveSec=10day
-

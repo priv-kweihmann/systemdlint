@@ -68,7 +68,10 @@ class Test(object):
             res += "\n"
             return res
         else:
-            return "\n".join(prefix) + "\n"
+            res = "\n".join(prefix) + "\n"
+            if extra:
+                res += "\n".join(extra) + "\n"
+            return res
 
     def GetTests(self):
         return []
@@ -199,9 +202,9 @@ class TestErrorMandatoryOptionMissing(Test):
                     _tmp.append("{}={}".format(y.Name, y.AllowedValue.GetAllowedValues()[0]))
             self.setting = Setting("Mandatory", k)
             res.append((self.GetTestFileName(k, 0),
-                        self.GetTestFileContent(None, prefix=_prefix + _tmp)))
+                        self.GetTestFileContent(None, prefix=["[Unit]", "Description=Foo"], extra=_prefix + _tmp)))
             res.append((self.GetTestFileName(k, 1),
-                        self.GetTestFileContent(None, prefix=_prefix)))
+                        self.GetTestFileContent(None, prefix=["[Unit]", "Description=Foo"], extra=_prefix)))
         return res
 
 class TestErrorSettingRequires(Test):

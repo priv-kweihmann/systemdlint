@@ -1,5 +1,0 @@
-[Unit]
-Description=Foo
-[Service]
-WatchdogSec=19d
-

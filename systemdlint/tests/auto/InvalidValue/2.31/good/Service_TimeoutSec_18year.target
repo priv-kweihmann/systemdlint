@@ -1,5 +1,0 @@
-[Unit]
-Description=Foo
-[Service]
-TimeoutSec=18year
-

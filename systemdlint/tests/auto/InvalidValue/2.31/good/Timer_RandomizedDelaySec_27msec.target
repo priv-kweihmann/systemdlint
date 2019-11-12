@@ -1,5 +1,0 @@
-[Unit]
-Description=Foo
-[Timer]
-RandomizedDelaySec=27msec
-

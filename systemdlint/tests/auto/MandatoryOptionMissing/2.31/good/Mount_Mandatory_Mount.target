@@ -1,3 +1,5 @@
+[Unit]
+Description=Foo
 [Mount]
 What=abc
 Where=/tmp

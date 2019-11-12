@@ -1,5 +1,0 @@
-[Unit]
-Description=Foo
-[Timer]
-AccuracySec=12second
-

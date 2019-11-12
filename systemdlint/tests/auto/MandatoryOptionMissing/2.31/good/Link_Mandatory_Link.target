@@ -1,2 +1,4 @@
+[Unit]
+Description=Foo
 [Link]
 MACAddress=abc

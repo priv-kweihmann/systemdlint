@@ -1,5 +1,0 @@
-[Unit]
-Description=Foo
-[DHCPServer]
-MaxLeaseTimeSec=14M
-

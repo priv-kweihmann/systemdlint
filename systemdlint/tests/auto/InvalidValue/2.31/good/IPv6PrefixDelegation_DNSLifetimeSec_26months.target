@@ -1,5 +1,0 @@
-[Unit]
-Description=Foo
-[IPv6PrefixDelegation]
-DNSLifetimeSec=26months
-

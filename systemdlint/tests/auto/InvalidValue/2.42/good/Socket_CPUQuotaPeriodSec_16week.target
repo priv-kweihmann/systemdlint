@@ -1,5 +1,0 @@
-[Unit]
-Description=Foo
-[Socket]
-CPUQuotaPeriodSec=16week
-

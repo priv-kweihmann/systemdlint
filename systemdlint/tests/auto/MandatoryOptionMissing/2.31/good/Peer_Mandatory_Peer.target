@@ -1,2 +1,4 @@
+[Unit]
+Description=Foo
 [Peer]
 Name=abc

@@ -1,5 +1,0 @@
-[Unit]
-Description=Foo
-[Automount]
-TimeoutIdleSec=24years
-

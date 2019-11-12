@@ -1,5 +1,0 @@
-[Unit]
-Description=Foo
-[Socket]
-TriggerLimitBurst=11y
-

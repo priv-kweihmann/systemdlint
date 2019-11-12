@@ -1,5 +1,0 @@
-[Unit]
-Description=Foo
-[Socket]
-TimeoutSec=7seconds
-

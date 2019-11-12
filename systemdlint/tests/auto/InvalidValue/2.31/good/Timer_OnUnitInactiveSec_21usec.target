@@ -1,5 +1,0 @@
-[Unit]
-Description=Foo
-[Timer]
-OnUnitInactiveSec=21usec
-

@@ -1,5 +1,0 @@
-[Unit]
-Description=Foo
-[Manager]
-SystemCallArchitectures=5hour
-

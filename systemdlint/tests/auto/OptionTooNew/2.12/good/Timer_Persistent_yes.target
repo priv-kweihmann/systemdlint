@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Timer]
+Persistent=123
+

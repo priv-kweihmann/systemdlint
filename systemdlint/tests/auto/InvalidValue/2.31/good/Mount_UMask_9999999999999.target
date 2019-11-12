@@ -1,0 +1,7 @@
+[Unit]
+Description=Foo
+[Mount]
+What=abc
+Where=/tmp
+UMask=9999999999999
+

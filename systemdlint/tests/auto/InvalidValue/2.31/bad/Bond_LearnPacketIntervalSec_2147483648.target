@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Bond]
+LearnPacketIntervalSec=2147483648
+

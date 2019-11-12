@@ -1,0 +1,6 @@
+[Unit]
+Description=one ExecStart
+
+[Service]
+Type=simple
+ExecStart=/bin/busybox

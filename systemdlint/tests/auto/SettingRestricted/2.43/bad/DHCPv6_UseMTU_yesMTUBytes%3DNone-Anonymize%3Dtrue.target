@@ -1,0 +1,6 @@
+[Unit]
+Description=Foo
+[DHCPv6]
+UseMTU=yes
+MTUBytes=None
+Anonymize=true

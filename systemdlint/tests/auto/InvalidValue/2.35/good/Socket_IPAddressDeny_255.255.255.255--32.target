@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Socket]
+IPAddressDeny=255.255.255.255/32
+

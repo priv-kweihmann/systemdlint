@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Socket]
+BlockIOWriteBandwidthMax=/devvvv -1G
+

@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Tunnel]
+Remote=1.1.1.1/0
+

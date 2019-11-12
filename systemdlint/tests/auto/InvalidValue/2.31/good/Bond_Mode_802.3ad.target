@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Bond]
+Mode=802.3ad
+

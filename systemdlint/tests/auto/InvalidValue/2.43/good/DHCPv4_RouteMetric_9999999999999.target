@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[DHCPv4]
+RouteMetric=9999999999999
+

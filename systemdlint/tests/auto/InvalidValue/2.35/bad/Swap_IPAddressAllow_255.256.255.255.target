@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Swap]
+IPAddressAllow=255.256.255.255
+

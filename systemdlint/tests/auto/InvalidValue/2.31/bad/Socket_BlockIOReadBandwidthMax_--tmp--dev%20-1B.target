@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Socket]
+BlockIOReadBandwidthMax=/tmp/dev -1B
+

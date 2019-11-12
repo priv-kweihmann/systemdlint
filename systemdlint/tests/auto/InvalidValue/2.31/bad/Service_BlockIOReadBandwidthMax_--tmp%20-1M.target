@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Service]
+BlockIOReadBandwidthMax=/tmp -1M
+

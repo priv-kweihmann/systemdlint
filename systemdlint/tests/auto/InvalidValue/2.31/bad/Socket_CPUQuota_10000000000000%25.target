@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Socket]
+CPUQuota=10000000000000%
+

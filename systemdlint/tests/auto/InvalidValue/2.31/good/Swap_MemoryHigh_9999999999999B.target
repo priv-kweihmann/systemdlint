@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Swap]
+MemoryHigh=9999999999999B
+

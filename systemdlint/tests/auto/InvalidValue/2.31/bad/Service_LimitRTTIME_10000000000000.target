@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Service]
+LimitRTTIME=10000000000000
+

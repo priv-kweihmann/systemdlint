@@ -1,0 +1,6 @@
+[Unit]
+Description=Foo
+[Link]
+MACAddress=abc
+RequiredForOnline=baz
+

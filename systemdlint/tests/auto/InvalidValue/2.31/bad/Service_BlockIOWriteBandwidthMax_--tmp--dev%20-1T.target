@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Service]
+BlockIOWriteBandwidthMax=/tmp/dev -1T
+

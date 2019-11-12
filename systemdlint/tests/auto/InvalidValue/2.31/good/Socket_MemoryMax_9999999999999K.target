@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Socket]
+MemoryMax=9999999999999K
+

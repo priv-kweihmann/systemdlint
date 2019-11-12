@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Network]
+IPv6Token=255.255.255.255/32
+

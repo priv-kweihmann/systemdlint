@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Network]
+NTP=file://test.a.b.com
+

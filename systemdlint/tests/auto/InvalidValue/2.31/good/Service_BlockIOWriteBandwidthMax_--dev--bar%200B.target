@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Service]
+BlockIOWriteBandwidthMax=/dev/bar 0B
+

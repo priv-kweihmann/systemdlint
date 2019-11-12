@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[RoutingPolicyRule]
+From=256.255.255.255
+

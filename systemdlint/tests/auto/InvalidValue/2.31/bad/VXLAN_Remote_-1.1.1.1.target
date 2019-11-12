@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[VXLAN]
+Remote=-1.1.1.1
+

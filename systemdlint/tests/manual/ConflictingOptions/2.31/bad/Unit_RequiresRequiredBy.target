@@ -1,0 +1,4 @@
+[Unit]
+Description=Before and After
+Requires=foo.service
+RequiredBy=foo.service

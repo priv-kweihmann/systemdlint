@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Service]
+LogRateLimitBurst=0.5d
+

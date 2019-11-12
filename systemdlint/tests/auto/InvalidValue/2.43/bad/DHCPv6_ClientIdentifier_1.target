@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[DHCPv6]
+ClientIdentifier=1
+

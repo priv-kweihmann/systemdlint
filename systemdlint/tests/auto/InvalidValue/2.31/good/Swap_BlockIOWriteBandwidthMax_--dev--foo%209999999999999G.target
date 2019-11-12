@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Swap]
+BlockIOWriteBandwidthMax=/dev/foo 9999999999999G
+

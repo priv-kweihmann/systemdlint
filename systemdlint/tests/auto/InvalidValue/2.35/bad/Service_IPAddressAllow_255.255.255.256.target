@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Service]
+IPAddressAllow=255.255.255.256
+

@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Swap]
+LimitRSS=10000000000000
+

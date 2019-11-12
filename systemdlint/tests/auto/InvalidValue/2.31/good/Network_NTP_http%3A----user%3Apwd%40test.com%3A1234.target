@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Network]
+NTP=http://user:pwd@test.com:1234
+

@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Login]
+HandlePowerKey=suspend-then-hibernate
+

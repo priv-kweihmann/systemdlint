@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Network]
+IPv6ProxyNDPAddress=0/abc
+

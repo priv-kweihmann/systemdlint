@@ -1,0 +1,2 @@
+[Socket]
+ExecStartPost=/bin/test

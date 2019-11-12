@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Service]
+LimitCPU=10000000000000
+

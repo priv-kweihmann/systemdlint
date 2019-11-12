@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Bond]
+MIIMonitorSec=10000000000000
+

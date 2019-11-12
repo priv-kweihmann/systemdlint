@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Service]
+LogRateLimitIntervalSec=1years 2months 3days 4hours 5min 30usec
+

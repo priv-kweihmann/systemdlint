@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Tunnel]
+IPv6RapidDeploymentPrefix=abc
+

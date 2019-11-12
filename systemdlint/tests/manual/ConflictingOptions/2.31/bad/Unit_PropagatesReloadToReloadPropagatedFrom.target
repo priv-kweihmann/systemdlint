@@ -1,0 +1,4 @@
+[Unit]
+Description=Before and After
+PropagatesReloadTo=foo.service
+ReloadPropagatedFrom=foo.service

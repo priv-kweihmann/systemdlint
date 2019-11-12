@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Service]
+PrivateDevices=0
+

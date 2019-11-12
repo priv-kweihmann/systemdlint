@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[RoutingPolicyRule]
+DestinationPort=-1 -1
+

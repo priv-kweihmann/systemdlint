@@ -21,3 +21,16 @@ class Limitation(object):
                    return element.Value in self.Value
                return element.Value == self.Value
         return False
+
+    def GetChunks(self):
+        res = []
+        _x = self.Value
+        if not isinstance(self.Value, tuple) and not isinstance(self.Value, list):
+            _x = [ self.Value ]
+        for x in _x:
+            _res = []
+            if self.Section:
+                _res.append("[{}]".format(self.Section))
+            _res.append("{}={}".format(self.Key, x))
+            res.append(_res)
+        return res

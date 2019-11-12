@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Swap]
+IPAddressDeny=0.0.0.
+

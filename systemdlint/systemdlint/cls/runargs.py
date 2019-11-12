@@ -15,6 +15,7 @@ def ArgParser():
     parser.add_argument("--rootpath", default="/", help="Root path")
     parser.add_argument("--sversion", default=DEFAULT_VERSION, help="Version of Systemd to be used")
     parser.add_argument("--output", default=sys.stderr, help="Where to flush the findings (default: stderr)")
+    parser.add_argument("--gentests", default=False, action="store_true", help=argparse.SUPPRESS)
     parser.add_argument("files", nargs='+', help="Files to parse")
     RUNARGS = parser.parse_args()
     ## Turn all paths to abs-paths right here

@@ -1,0 +1,6 @@
+[Unit]
+Description=Foo
+[BridgeFDB]
+MACAddress=abc
+Destination=1.1.1.1/0
+

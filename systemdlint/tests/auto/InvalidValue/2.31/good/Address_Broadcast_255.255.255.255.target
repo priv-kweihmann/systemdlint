@@ -1,0 +1,6 @@
+[Unit]
+Description=Foo
+[Address]
+Address=abc
+Broadcast=255.255.255.255
+

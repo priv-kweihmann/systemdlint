@@ -330,7 +330,7 @@ class PathValue(Value):
         return ["/bin", "/usr/sbin"]
     
     def GetInvalidValues(self):
-        return ["http://foo.org", "ftp://bar.gov"]
+        return []
 
 
 class UsersValue(Value):
@@ -371,7 +371,7 @@ class EnumListValue(Value):
         return self.__values
     
     def GetInvalidValues(self):
-        return [True, 1]
+        return []
 
 class EnumValue(EnumListValue):
     def __init__(self, value, conditional={}):
@@ -403,7 +403,7 @@ class OctalModeValue(Value):
         return ["002", "004", "006", "007", "777", "644"]
     
     def GetInvalidValues(self):
-        return [1, True, "-1", "999", "888"]
+        return [1, True, "999", "888"]
 
 class UrlListValue(Value):
     def __init__(self, conditional={}):
@@ -431,8 +431,7 @@ class UrlListValue(Value):
     def GetInvalidValues(self):
         return [
             1,
-            True,
-            "http:test"
+            True
         ]
 
 class UnitListValue(Value):
@@ -547,7 +546,7 @@ class ExecValue(Value):
         return ["/bin/sh"]
     
     def GetInvalidValues(self):
-        return ["/etc/passwd", "a>b", 1, True]
+        return []
 
 class CombinedValue(Value):
     def __init__(self, args, conditional={}):

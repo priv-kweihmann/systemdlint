@@ -403,7 +403,7 @@ class OctalModeValue(Value):
         return ["002", "004", "006", "007", "777", "644"]
     
     def GetInvalidValues(self):
-        return [1, True, "999", "888"]
+        return [True, "999", "888"]
 
 class UrlListValue(Value):
     def __init__(self, conditional={}):

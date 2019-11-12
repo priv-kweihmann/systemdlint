@@ -201,10 +201,13 @@ class TestErrorMandatoryOptionMissing(Test):
                 if y:
                     _tmp.append("{}={}".format(y.Name, y.AllowedValue.GetAllowedValues()[0]))
             self.setting = Setting("Mandatory", k)
+            _unitprefix = ["[Unit]", "Description=Foo"]
+            if k == "Unit":
+                _unitprefix = []
             res.append((self.GetTestFileName(k, 0),
-                        self.GetTestFileContent(None, prefix=["[Unit]", "Description=Foo"], extra=_prefix + _tmp)))
+                        self.GetTestFileContent(None, prefix=_unitprefix, extra=_prefix + _tmp)))
             res.append((self.GetTestFileName(k, 1),
-                        self.GetTestFileContent(None, prefix=["[Unit]", "Description=Foo"], extra=_prefix)))
+                        self.GetTestFileContent(None, prefix=_unitprefix, extra=_prefix)))
         return res
 
 class TestErrorSettingRequires(Test):

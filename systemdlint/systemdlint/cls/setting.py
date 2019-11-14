@@ -10,6 +10,7 @@ class Setting(object):
         self.Requires = requires
         self.DropinProc = dropinproc or DropinOverride()
 
+
 class DropinOverride(object):
     def Run(self, unit, stash):
         stash.append(unit)
@@ -18,7 +19,8 @@ class DropinOverride(object):
 class DropinAdditive(object):
     def Run(self, unit, stash):
         if not unit.Value.strip():
-            ## remove all setting with same Section and Key
-            ## in before from stash
-            stash = [x for x in stash if not (x.Section == unit.Section and x.Key == unit.Key) ]
+            # remove all setting with same Section and Key
+            # in before from stash
+            stash = [x for x in stash if not (
+                x.Section == unit.Section and x.Key == unit.Key)]
         stash.append(unit)

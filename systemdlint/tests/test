@@ -1,17 +1,20 @@
 #!/usr/bin/env python3
 import glob
 import os
-import subprocess
 import re
+import subprocess
 import sys
-from multiprocessing import Pool, cpu_count
+from multiprocessing import Pool
+from multiprocessing import cpu_count
 
 _basepath = os.path.dirname(os.path.abspath(__file__))
 _bindir = os.path.abspath(os.path.join(_basepath, "..", "bin"))
 _modpath = os.path.abspath(os.path.join(_basepath, ".."))
 
-os.environ["PYTHONPATH"] = "{}:{}".format(_modpath, os.environ.get("PYTHONPATH", ""))
+os.environ["PYTHONPATH"] = "{}:{}".format(
+    _modpath, os.environ.get("PYTHONPATH", ""))
 os.environ["PATH"] = "{}:{}".format(_bindir, os.environ.get("PATH", ""))
+
 
 def run_tc(_file):
     tc_good = True
@@ -21,10 +24,12 @@ def run_tc(_file):
     _version = _chunks[-3]
     _errorID = _chunks[-4]
     _path = _chunks[-5]
-    _preamble = "Testing: {}:{}@{} expect to be {} ...".format(_errorID, _testfile, _version, _result)
+    _preamble = "Testing: {}:{}@{} expect to be {} ...".format(
+        _errorID, _testfile, _version, _result)
     _cmdout = ""
     _args = ["systemdlint", "--sversion={}".format(_version)]
-    _workspace = os.path.join(_basepath, "workspace", _errorID, _version, _result, _testfile)
+    _workspace = os.path.join(_basepath, "workspace",
+                              _errorID, _version, _result, _testfile)
     _ws_files = []
     if os.path.isdir(_workspace):
         _args += ["--rootpath={}".format(_workspace)]
@@ -44,32 +49,36 @@ def run_tc(_file):
             ".timer"
         ]
         for ext in KNOWN_UNITS_EXT:
-            _ws_files += glob.glob(_workspace + "/**/*{}".format(ext), recursive=True)
+            _ws_files += glob.glob(_workspace +
+                                   "/**/*{}".format(ext), recursive=True)
     try:
-        _cmdout = subprocess.check_output(_args + [_file] + _ws_files, stderr=subprocess.STDOUT)
+        _cmdout = subprocess.check_output(
+            _args + [_file] + _ws_files, stderr=subprocess.STDOUT)
     except subprocess.CalledProcessError as e:
         _cmdout = e.stdout or ""
-    
-    _matches = re.finditer(r"^.*\[{}\].*".format(_errorID), _cmdout.decode("utf-8"), re.MULTILINE)
+
+    _matches = re.finditer(
+        r"^.*\[{}\].*".format(_errorID), _cmdout.decode("utf-8"), re.MULTILINE)
     if _result == "good":
         if not any(_matches):
             print("{}[PASSED]".format(_preamble))
         else:
             print("{}[FAILED]".format(_preamble))
-            print("#######################")
+            print("############")
             print(_cmdout.decode("utf-8"))
-            print("#######################")
+            print("############")
             tc_good = False
     else:
         if any(_matches):
             print("{}[PASSED]".format(_preamble))
         else:
             print("{}[FAILED]".format(_preamble))
-            print("#######################")
+            print("############")
             print(_cmdout.decode("utf-8"))
-            print("#######################")
+            print("############")
             tc_good = False
     return tc_good
+
 
 _files = []
 for _file in glob.glob(_basepath + "/**/*", recursive=True):
@@ -79,7 +88,7 @@ for _file in glob.glob(_basepath + "/**/*", recursive=True):
         continue
     _files.append(_file)
 
-## Run in pool
+# Run in pool
 p = Pool(processes=cpu_count() * 2)
 _map = p.map(run_tc, _files)
 

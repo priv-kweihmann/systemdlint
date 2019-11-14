@@ -1,6 +1,8 @@
 import os
-import subprocess
 import re
+import subprocess
+
+
 class Helper(object):
 
     @staticmethod
@@ -24,7 +26,8 @@ class Helper(object):
     @staticmethod
     def GetSystemdVersion(rootpath, default):
         try:
-            out = subprocess.check_output(["strings", "-n", "12", Helper.GetPath(rootpath, "/bin/systemd")], universal_newlines=True)
+            out = subprocess.check_output(
+                ["strings", "-n", "12", Helper.GetPath(rootpath, "/bin/systemd")], universal_newlines=True)
             for m in re.finditer(r"systemd\s(?P<version>\d\d\d)", out, re.MULTILINE):
                 try:
                     val = int(m.group("version")) / 100.0
@@ -34,4 +37,3 @@ class Helper(object):
             return default
         except subprocess.CalledProcessError:
             return default
-        

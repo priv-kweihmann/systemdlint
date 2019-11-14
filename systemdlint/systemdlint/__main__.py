@@ -11,7 +11,7 @@ if __name__ == '__main__':
         for item in _stash:
             _errors += item.Validate(runargs, _stash)
         _errors = list(set(_errors))
-        
+
         _out = runargs.output
         if isinstance(_out, str):
             _out = open(runargs.output, "w")

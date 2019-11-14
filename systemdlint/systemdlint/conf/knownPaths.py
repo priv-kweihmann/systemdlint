@@ -49,9 +49,6 @@ KNOWN_DROPIN_PATHS = {
     ".network": [
         "/etc/systemd/network/%unit%.d/*.conf", "/run/systemd/network/%unit%.d/*.conf", "/usr/lib/systemd/%unit%.d/*.conf", "/lib/systemd/%unit%.d/*.conf"
     ],
-    ".network": [
-        "/etc/systemd/network/%unit%.d/*.conf", "/run/systemd/network/%unit%.d/*.conf", "/usr/lib/systemd/%unit%.d/*.conf", "/lib/systemd/%unit%.d/*.conf"
-    ],
     ".netdev": [
         "/etc/systemd/%unit%.d/*.conf", "/run/systemd/%unit%.d/*.conf", "/usr/lib/systemd/%unit%.d/*.conf", "/lib/systemd/%unit%.d/*.conf"
     ],

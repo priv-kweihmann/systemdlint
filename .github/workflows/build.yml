@@ -41,3 +41,5 @@ jobs:
       run: |
         cd systemdlint
         $(pwd)/tests/test
+      # Disable testing at 3.8 for now
+      if: matrix.python-version != '3.8'

@@ -27,6 +27,23 @@ optional arguments:
   --output OUTPUT      Where to flush the findings (default: stderr)
 ```
 
+## Installation
+
+### PyPi
+
+simply run
+
+```sh
+pip3 install systemdlint
+```
+
+### From source
+
+* Install the needed requirements by running ```pip3 install systemdunitparser anytree```
+* git clone this repository
+* cd to \<clone folder\>/systemdlint
+* run ```sudo ./build.sh```
+
 ## Output
 
 The tool will return

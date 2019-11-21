@@ -45,20 +45,20 @@ class Parser(object):
         with open(file) as i:
             try:
                 __x.read_file(i)
-            except (ParsingError) as e:
-                _file, fileext = os.path.splitext(file)
-                if fileext in KNOWN_UNITS_EXT:
-                    msg = e.message.split("\n")[0]
-                    res.append(UnitItem(file=file, line=1, preerror=[
-                               ErrorSyntaxError(msg, 1, file)]))
-                else:
-                    return res
             except (MissingSectionHeaderError) as e:
                 _file, fileext = os.path.splitext(file)
                 if fileext in KNOWN_UNITS_EXT:
                     msg = e.message.split("\n")[0]
                     res.append(UnitItem(file=file, line=e.lineno,
                                         preerror=[ErrorSyntaxError(msg, 1, file)]))
+                else:
+                    return res
+            except (ParsingError) as e:
+                _file, fileext = os.path.splitext(file)
+                if fileext in KNOWN_UNITS_EXT:
+                    msg = e.message.split("\n")[0]
+                    res.append(UnitItem(file=file, line=1, preerror=[
+                               ErrorSyntaxError(msg, 1, file)]))
                 else:
                     return res
             except UnicodeDecodeError:
@@ -91,7 +91,7 @@ class Parser(object):
         if not runargs.nodropins:
             for p in GetDropinPaths(os.path.basename(file), runargs):
                 for f in glob.glob(p):
-                    d_res = self.__parseFile(f)
+                    d_res = self.__parseFile(f, runargs)
                     for item in d_res:
                         res = item.RunDropInProcessor(res, runargs)
 

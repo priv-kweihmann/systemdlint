@@ -161,10 +161,10 @@ class IPValue(Value):
     def IsAllowedValue(self, value):
         try:
             ipaddress.IPv4Interface(self.CleanValue(value))
-        except:
+        except Exception:
             try:
                 ipaddress.IPv4Address(self.CleanValue(value))
-            except:
+            except Exception:
                 return False
         return True
 
@@ -333,7 +333,7 @@ class PathValue(Value):
         try:
             pathlib.Path(self.CleanValue(value))
             return True
-        except:
+        except Exception:
             return False
 
     def GetAllowedValues(self):
@@ -411,7 +411,7 @@ class OctalModeValue(Value):
         try:
             int(self.CleanValue(value), 8)
             return True
-        except:
+        except Exception:
             return False
 
     def GetAllowedValues(self):
@@ -432,7 +432,7 @@ class UrlListValue(Value):
                 result = urlparse(item)
                 if not result.scheme and not result.netloc:
                     raise Exception()
-            except:
+            except Exception:
                 res = False
                 break
         return res

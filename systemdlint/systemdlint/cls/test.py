@@ -5,8 +5,8 @@ from itertools import product
 from systemdlint.cls.setting import Setting
 from systemdlint.cls.value import NumericValue
 from systemdlint.cls.value import UnitListValue
-from systemdlint.conf import knownMandatory
-from systemdlint.conf import knownSettings
+from systemdlint.conf.knownMandatory import KNOWN_MANDATORY
+from systemdlint.conf.knownSettings import KNOWN_SETTINGS
 from systemdlint.conf import knownUnits
 
 class Test(object):
@@ -18,7 +18,7 @@ class Test(object):
         self.suffix = suffix
 
     def _findInKnownSettings(self, section, name):
-        for i in knownSettings.KNOWN_SETTINGS:
+        for i in KNOWN_SETTINGS:
             if i.Section == section and i.Name == name:
                 return i
         return None
@@ -46,8 +46,8 @@ class Test(object):
 
     def __GetMandatoryOptions(self):
         res = ["[Unit]", "Description=Foo"]
-        if self.setting.Section in knownSettings.KNOWN_MANDATORY.keys():
-            for x in knownSettings.KNOWN_MANDATORY[self.setting.Section]:
+        if self.setting.Section in KNOWN_MANDATORY.keys():
+            for x in KNOWN_MANDATORY[self.setting.Section]:
                 y = self._findInKnownSettings(self.setting.Section, x)
                 if y:
                     _unit = "[{}]".format(y.Section)
@@ -210,7 +210,7 @@ class TestErrorMandatoryOptionMissing(Test):
 
     def GetTests(self):
         res = []
-        for k, v in knownSettings.KNOWN_MANDATORY.items():
+        for k, v in KNOWN_MANDATORY.items():
             _prefix = ["[{}]".format(k)]
             _tmp = []
             for x in v:

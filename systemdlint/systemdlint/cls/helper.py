@@ -32,7 +32,7 @@ class Helper(object):
                 try:
                     val = int(m.group("version")) / 100.0
                     return str(val)
-                except:
+                except Exception:
                     pass
             return default
         except subprocess.CalledProcessError:

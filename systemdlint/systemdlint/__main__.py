@@ -1,6 +1,6 @@
 from systemdlint.cls.parser import Parser
 from systemdlint.cls.runargs import ArgParser
-from systemdlint.conf.knownSettings import getTests
+from systemdlint.conf.getTests import getTests
 
 if __name__ == '__main__':
     runargs = ArgParser()
@@ -17,5 +17,7 @@ if __name__ == '__main__':
             _out = open(runargs.output, "w")
         for item in _errors:
             _out.write(str(item) + "\n")
+        if isinstance(runargs.output, str):
+            _out.close()
     else:
         getTests(runargs.files[0])

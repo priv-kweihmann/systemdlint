@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[TrafficControlQueueingDiscipline]
+NetworkEmulatorDelaySec=9999999999999
+

@@ -1,0 +1,6 @@
+[Unit]
+Description=Foo
+[NextHop]
+Gateway=1.1.1.1/0
+Gateway=0.0.0.
+

@@ -7,5 +7,6 @@ KNOWN_MANDATORY = {
     "NetDev": ["Name"],
     "L2TPSession": ["Name"],
     "Peer": ["Name"],
-    "IPv6AddressLabel": ["Label", "Prefix"]
+    "IPv6AddressLabel": ["Label", "Prefix"],
+    "NextHop": ["Gateway"]
 }

@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[TrafficControlQueueingDiscipline]
+NetworkEmulatorDuplicateRate=0%
+

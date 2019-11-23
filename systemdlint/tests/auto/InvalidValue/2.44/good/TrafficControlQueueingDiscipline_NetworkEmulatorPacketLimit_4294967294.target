@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[TrafficControlQueueingDiscipline]
+NetworkEmulatorPacketLimit=4294967294
+

@@ -9,6 +9,10 @@ try:
 except (subprocess.CalledProcessError, FileNotFoundError):
     pass
 
+requirements = []
+with open('requirements.txt') as f:
+    requirements = f.read().splitlines()
+
 setuptools.setup(
     name="systemdlint",
     version="1.1.3",
@@ -19,10 +23,7 @@ setuptools.setup(
     long_description_content_type=_long_description_content_type,
     url="https://github.com/priv-kweihmann/systemdlint",
     packages=setuptools.find_packages(),
-    install_requires=[
-        'systemdunitparser>=0.1',
-        'anytree>=2.6.0',
-    ],
+    install_requires=requirements,
     scripts=['bin/systemdlint'],
     classifiers=[
         "Development Status :: 4 - Beta",

@@ -27,7 +27,7 @@ class Helper(object):
     def GetSystemdVersion(rootpath, default):
         try:
             out = subprocess.check_output(
-                ["strings", "-n", "12", Helper.GetPath(rootpath, "/bin/systemd")], universal_newlines=True)
+                ["strings", "-n", "12", Helper.GetPath(rootpath, "/lib/systemd/systemd")], universal_newlines=True)
             for m in re.finditer(r"systemd\s(?P<version>\d\d\d)", out, re.MULTILINE):
                 try:
                     val = int(m.group("version")) / 100.0

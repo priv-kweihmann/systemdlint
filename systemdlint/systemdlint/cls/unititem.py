@@ -53,7 +53,7 @@ class UnitItem(object):
             sversion=runargs.sversion)
         if not self.__settingHandler:
             return stash
-        return self.__settingHandler.DropinProc().Run(self, stash)
+        return self.__settingHandler.DropinProc.Run(self, stash)
 
     def Validate(self, runargs, stash):
         res = []

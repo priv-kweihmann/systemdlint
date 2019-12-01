@@ -14,6 +14,7 @@ class Setting(object):
 class DropinOverride(object):
     def Run(self, unit, stash):
         stash.append(unit)
+        return stash
 
 
 class DropinAdditive(object):
@@ -24,3 +25,4 @@ class DropinAdditive(object):
             stash = [x for x in stash if not (
                 x.Section == unit.Section and x.Key == unit.Key)]
         stash.append(unit)
+        return stash

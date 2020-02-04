@@ -1,5 +1,0 @@
-[Unit]
-Description=Foo
-[Manager]
-DefaultStartLimitIntervalSec=9999999999999
-

@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Manager]
+DefaultTimeoutStartSec=3decades
+

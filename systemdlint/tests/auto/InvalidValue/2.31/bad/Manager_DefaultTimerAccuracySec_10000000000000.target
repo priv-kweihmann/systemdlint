@@ -1,5 +1,0 @@
-[Unit]
-Description=Foo
-[Manager]
-DefaultTimerAccuracySec=10000000000000
-

@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Service]
+StartLimitIntervalSec=17second
+

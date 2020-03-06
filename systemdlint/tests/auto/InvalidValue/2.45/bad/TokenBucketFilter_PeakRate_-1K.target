@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[TokenBucketFilter]
+PeakRate=-1K
+

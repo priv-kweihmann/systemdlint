@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[NetworkEmulator]
+PacketLimit=4294967294
+

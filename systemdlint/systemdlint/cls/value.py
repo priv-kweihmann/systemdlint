@@ -6,6 +6,7 @@ import os
 import pathlib
 import re
 import stat
+import string
 from itertools import product
 from urllib.parse import urlparse
 
@@ -81,11 +82,12 @@ class Value(object):
 
 
 class NumericValue(Value):
-    def __init__(self, lower=0, upper=9999999999999, base=1, suffixes=[], specials=[], conditional={}):
+    def __init__(self, lower=0, upper=9999999999999, base=1, suffixes=[], specials=[], conditional={}, numberBase=10):
         self.__boundaries = [lower, upper]
         self.__suffixes = suffixes
         self.__specials = specials
         self.Base = base
+        self.__numberBase = numberBase
         super().__init__(conditional)
 
     def __getPlainValue(self, value):
@@ -97,7 +99,14 @@ class NumericValue(Value):
     def IsAllowedValue(self, value):
         val = self.__getPlainValue(value)
         val2 = val.lstrip("-")
-        return (str.isnumeric(val2) and int(val) >= self.__boundaries[0] and int(val) <= self.__boundaries[-1]) or (val2 in self.__specials)
+        charSet = string.digits
+        if self.__numberBase == 16:
+            charSet = string.hexdigits
+        elif self.__numberBase == 8:
+            charSet = string.octdigits
+        return (all(c in charSet for c in val2) and \
+               int(val, self.__numberBase) >= self.__boundaries[0] and \
+               int(val, self.__numberBase) <= self.__boundaries[-1]) or (val2 in self.__specials)
 
     def AdditionalErrors(self, value, item, runargs):
         res = []
@@ -139,6 +148,41 @@ class NumericValue(Value):
                     res.append(i + 1)
         return res
 
+class HexValue(NumericValue):
+    def __init__(self, lower=0, upper=9999999999999, base=1, suffixes=[], specials=[], conditional={}):
+        super().__init__(lower=lower, upper=upper, base=base, suffixes=suffixes,
+                         specials=specials, conditional=conditional, numberBase=16)
+        self.__boundaries = [lower, upper]
+        self.__suffixes = suffixes
+        self.__specials = specials
+
+    def GetAllowedValues(self, baseOnly=False):
+        res = []
+        _suffixess = self.__suffixes or [""]
+        if not baseOnly:
+            for x in _suffixess:
+                res.append("{:02x}{}".format(self.__boundaries[0], x))
+                res.append("{:02x}{}".format(self.__boundaries[-1], x))
+            for x in self.__specials:
+                res.append(x)
+        else:
+            if self.Base != 1:
+                for i in range(self.Base, self.Base * 10, self.Base):
+                    res.append("{:02x}".format(i))
+        return res
+
+    def GetInvalidValues(self, baseOnly=False):
+        res = []
+        _suffixess = self.__suffixes or [""]
+        if not baseOnly:
+            for x in _suffixess:
+                res.append("{:02x}{}".format(self.__boundaries[0] - 1, x))
+                res.append("{:02x}{}".format(self.__boundaries[-1] + 1, x))
+        else:
+            if self.Base != 1:
+                for i in range(self.Base, self.Base * 10, self.Base):
+                    res.append("{:02x}".format(i))
+        return res
 
 class TextValue(Value):
     def __init__(self, conditional={}):
@@ -153,6 +197,18 @@ class TextValue(Value):
     def GetInvalidValues(self):
         return []
 
+class EmptyValue(Value):
+    def __init__(self, conditional={}):
+        super().__init__(conditional)
+
+    def IsAllowedValue(self, value):
+        return not value
+
+    def GetAllowedValues(self):
+        return [""]
+
+    def GetInvalidValues(self):
+        return ["a"]
 
 class IPValue(Value):
     def __init__(self, conditional={}):

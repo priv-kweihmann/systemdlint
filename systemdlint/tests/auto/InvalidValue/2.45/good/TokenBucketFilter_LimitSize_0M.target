@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[TokenBucketFilter]
+LimitSize=0M
+

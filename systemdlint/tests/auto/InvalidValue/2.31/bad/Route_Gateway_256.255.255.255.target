@@ -1,5 +1,0 @@
-[Unit]
-Description=Foo
-[Route]
-Gateway=256.255.255.255
-

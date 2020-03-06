@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[NetworkEmulator]
+DuplicateRate=0%
+

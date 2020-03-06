@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[FairQueueing]
+Buckets=9999999999999
+

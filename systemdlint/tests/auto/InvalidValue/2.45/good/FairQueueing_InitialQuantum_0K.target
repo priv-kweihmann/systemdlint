@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[FairQueueing]
+InitialQuantum=0K
+

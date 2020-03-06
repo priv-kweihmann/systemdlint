@@ -24,7 +24,11 @@ setuptools.setup(
     url="https://github.com/priv-kweihmann/systemdlint",
     packages=setuptools.find_packages(),
     install_requires=requirements,
-    scripts=['bin/systemdlint'],
+    entry_points={
+        "console_scripts": [
+            "systemdlint = systemdlint.__main__:main",
+        ]
+    },
     classifiers=[
         "Development Status :: 4 - Beta",
         "Environment :: Console",

@@ -2,7 +2,7 @@ from systemdlint.cls.parser import Parser
 from systemdlint.cls.runargs import ArgParser
 from systemdlint.conf.getTests import getTests
 
-if __name__ == '__main__':
+def main():
     runargs = ArgParser()
     if not runargs.gentests:
         _parser = Parser(runargs, runargs.files)
@@ -21,3 +21,6 @@ if __name__ == '__main__':
             _out.close()
     else:
         getTests(runargs.files[0])
+
+if __name__ == '__main__':
+    main()

@@ -36,7 +36,7 @@ jobs:
     - name: Install
       run: |
         cd systemdlint
-        python3 setup.py build
+        python3 setup.py install
     - name: Test
       run: |
         cd systemdlint

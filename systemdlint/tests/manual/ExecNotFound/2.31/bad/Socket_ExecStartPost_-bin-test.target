@@ -1,2 +1,0 @@
-[Socket]
-ExecStartPost=/bin/test

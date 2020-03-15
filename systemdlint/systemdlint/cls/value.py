@@ -104,14 +104,18 @@ class NumericValue(Value):
             charSet = string.hexdigits
         elif self.__numberBase == 8:
             charSet = string.octdigits
+        if val2 in self.__specials:
+            return True
         return (all(c in charSet for c in val2) and \
                int(val, self.__numberBase) >= self.__boundaries[0] and \
-               int(val, self.__numberBase) <= self.__boundaries[-1]) or (val2 in self.__specials)
+               int(val, self.__numberBase) <= self.__boundaries[-1])
 
     def AdditionalErrors(self, value, item, runargs):
         res = []
         try:
             val = self.__getPlainValue(value)
+            if val in self.__specials:
+                return res
             x = int(val)
             if x % self.Base != 0:
                 res.append(ErrorInvalidNumericBase(

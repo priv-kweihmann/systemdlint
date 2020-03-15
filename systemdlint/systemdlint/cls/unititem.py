@@ -54,6 +54,15 @@ class UnitItem(object):
         if not self.__settingHandler:
             return stash
         return self.__settingHandler.DropinProc.Run(self, stash)
+    
+    def IsValidInVersion(self, version):
+        x = self.__getMatchingItem()
+        if x:
+            if float(x.TillRel) < float(version):
+                return False
+            if float(x.SinceRel) > float(version):
+                return False
+        return True
 
     def Validate(self, runargs, stash):
         res = []

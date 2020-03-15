@@ -104,13 +104,13 @@ class Parser(object):
 
         for k in SPECIALS_SINGLEITEM:
             # Catch all the special cases
-            res = k.Run(res)
+            res = k.Run(res, self.__runargs)
 
         return list(set(res))
 
     def GlobalValidate(self):
         for s in SPECIALS_ALLITEMS:
-            self.__unititems = s.Run(list(set(self.__unititems)))
+            self.__unititems = s.Run(list(set(self.__unititems)), self.__runargs)
 
     def GetResults(self):
         self.GlobalValidate()

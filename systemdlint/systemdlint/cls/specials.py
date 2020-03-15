@@ -12,7 +12,7 @@ from systemdlint.cls.unititem import UnitItem
 
 
 class SpecialTypeOneShotExecStart(object):
-    def Run(self, stash):
+    def Run(self, stash, runargs):
         uniqunits = list(set([x.UnitName for x in stash]))
         for u in uniqunits:
             execstarts = [x for x in stash if x.Section ==
@@ -34,7 +34,7 @@ class SpecialTypeOneShotExecStart(object):
 
 
 class SpecialForwardReverseOption(object):
-    def Run(self, stash):
+    def Run(self, stash, runargs):
         uniqunits = list(set([x.UnitName for x in stash]))
         check_items = [
             ["Before", "After"],
@@ -64,7 +64,7 @@ class SpecialForwardReverseOption(object):
 
 
 class SpecialRestartAlwaysConflicts(object):
-    def Run(self, stash):
+    def Run(self, stash, runargs):
         restart_always = [x for x in stash if x.Key ==
                           "Restart" and x.Value == "always"]
         for r in restart_always:
@@ -131,7 +131,7 @@ class SpecialDepCycle(object):
                              ErrorCyclicDependency(_path, x.Line, x.File)]))
         return stash
 
-    def Run(self, stash):
+    def Run(self, stash, runargs):
         return self.__buildTree(stash)
 
 
@@ -167,9 +167,9 @@ class SpecialSecurityAssessment(object):
                 ]))
         if not _effcaps and emptybad:
             res.append(UnitItem(file=_file, line=1, preerror=[
-                    ErrorSecurity(
-                        "Service doesn't set recommended {}".format(key), _file, key)
-                ]))
+                ErrorSecurity(
+                    "Service doesn't set recommended {}".format(key), _file, key)
+            ]))
         return res
 
     def __access_user(self, stash):
@@ -204,6 +204,8 @@ class SpecialSecurityAssessment(object):
             return res
         if self.__is_priv_user(stash):
             return res
+        if not UnitItem(file="magicfoo", section="Service", key="SupplementaryGroups").IsValidInVersion(self.__version):
+            return res
         for _x in [x for x in stash if x.Key == "SupplementaryGroups"]:
             res.append(UnitItem(file=_x.File, line=_x.Line, preerror=[
                 ErrorSecurity("Service should not use {}".format(
@@ -216,6 +218,8 @@ class SpecialSecurityAssessment(object):
         if not stash:
             return res
         if self.__is_priv_user(stash):
+            return res
+        if not UnitItem(file="magicfoo", section="Service", key="RemoveIPC").IsValidInVersion(self.__version):
             return res
         for _x in [x for x in stash if x.Key == "RemoveIPC"]:
             if _x.Value not in ["yes", "on", "1", "true"]:
@@ -230,26 +234,31 @@ class SpecialSecurityAssessment(object):
         if not stash:
             return res
         _file = stash[0].File
+        if not UnitItem(file="magicfoo", section="Service", key="RootDirectory").IsValidInVersion(self.__version) and \
+           not UnitItem(section="Service", key="RootImage").IsValidInVersion(self.__version):
+            return res
         _root = [x for x in stash if x.Key ==
-            "RootDirectory" or x.Key == "RootImage"]
+                 "RootDirectory" or x.Key == "RootImage"]
         if not _root or any([x.Value in ["", "/"] for x in _root]):
             res.append(UnitItem(file=_file, line=1, preerror=[
-                    ErrorSecurity(
-                        "Service should set RootDirectory or RootImage to non-root value", _file, "RootDirectory")
-                ]))
+                ErrorSecurity(
+                    "Service should set RootDirectory or RootImage to non-root value", _file, "RootDirectory")
+            ]))
         return res
 
     def __access_protect_sys(self, stash):
         res = []
         if not stash:
             return res
+        if not UnitItem(file="magicfoo", section="Service", key="ProtectSystem").IsValidInVersion(self.__version):
+            return res
         _file = stash[0].File
         _items = [x for x in stash if x.Key == "ProtectSystem"]
         if not _items:
             res.append(UnitItem(file=_file, line=1, preerror=[
-                    ErrorSecurity("Service should set ProtectSystem",
-                                  _file, "ProtectSystemNA")
-                ]))
+                ErrorSecurity("Service should set ProtectSystem",
+                              _file, "ProtectSystemNA")
+            ]))
         else:
             for x in _items:
                 if x.Value != "strict":
@@ -264,12 +273,14 @@ class SpecialSecurityAssessment(object):
         if not stash:
             return res
         _file = stash[0].File
+        if not UnitItem(file="magicfoo", section="Service", key="ProtectHome").IsValidInVersion(self.__version):
+            return res
         _items = [x for x in stash if x.Key == "ProtectHome"]
         if not _items:
             res.append(UnitItem(file=_file, line=1, preerror=[
-                    ErrorSecurity("Service should set ProtectHome",
-                                  _file, "ProtectHomeNA")
-                ]))
+                ErrorSecurity("Service should set ProtectHome",
+                              _file, "ProtectHomeNA")
+            ]))
         else:
             for x in _items:
                 if x.Value not in ["yes", "true", "1", "on"]:
@@ -284,6 +295,8 @@ class SpecialSecurityAssessment(object):
         if not stash:
             return res
         _file = stash[0].File
+        if not UnitItem(file="magicfoo", section="Service", key="NotifyAccess").IsValidInVersion(self.__version):
+            return res
         _items = [x for x in stash if x.Key == "NotifyAccess"]
         for x in _items:
             if x.Value == "all":
@@ -298,12 +311,14 @@ class SpecialSecurityAssessment(object):
         if not stash:
             return res
         _file = stash[0].File
+        if not UnitItem(file="magicfoo", section="Service", key="KeyringMode").IsValidInVersion(self.__version):
+            return res
         _items = [x for x in stash if x.Key == "KeyringMode"]
         if not _items:
             res.append(UnitItem(file=_file, line=1, preerror=[
-                    ErrorSecurity("Service should set KeyringMode",
-                                  _file, "KeyringModeNA")
-                ]))
+                ErrorSecurity("Service should set KeyringMode",
+                              _file, "KeyringModeNA")
+            ]))
         else:
             for x in _items:
                 if x.Value != "private":
@@ -318,12 +333,14 @@ class SpecialSecurityAssessment(object):
         if not stash:
             return res
         _file = stash[0].File
+        if not UnitItem(file="magicfoo", section="Service", key="IPAddressDeny").IsValidInVersion(self.__version):
+            return res
         _items = [x for x in stash if x.Key == "IPAddressDeny"]
         if not _items:
             res.append(UnitItem(file=_file, line=1, preerror=[
-                    ErrorSecurity("Service should set IPAddressDeny",
-                                  _file, "IPAddressDenyNA")
-                ]))
+                ErrorSecurity("Service should set IPAddressDeny",
+                              _file, "IPAddressDenyNA")
+            ]))
         # TODO eval further rules like localhost only a.s.o.
         return res
 
@@ -332,13 +349,15 @@ class SpecialSecurityAssessment(object):
         if not stash:
             return res
         _file = stash[0].File
+        if not UnitItem(file="magicfoo", section="Service", key="DevicePolicy").IsValidInVersion(self.__version):
+            return res
         _devpolicy = [x.Value in ["strict", "closed"]
-            for x in stash if x.Key == "DevicePolicy"]
+                      for x in stash if x.Key == "DevicePolicy"]
         if not _devpolicy:
             res.append(UnitItem(file=_file, line=1, preerror=[
-                    ErrorSecurity(
-                        "Service should set DevicePolicy to strict or closed", _file, "DevicePolicy")
-                ]))
+                ErrorSecurity(
+                    "Service should set DevicePolicy to strict or closed", _file, "DevicePolicy")
+            ]))
         return res
 
     def __access_favor_set_boolean(self, stash, keys):
@@ -347,6 +366,8 @@ class SpecialSecurityAssessment(object):
             return res
         _file = stash[0].File
         for k in keys:
+            if not UnitItem(file="magicfoo", section="Service", key=k).IsValidInVersion(self.__version):
+                continue
             if not any([x.Value in ["yes", "true", "1", "on"] for x in stash if x.Key == k]):
                 res.append(UnitItem(file=_file, line="1", preerror=[
                     ErrorSecurity(
@@ -360,6 +381,8 @@ class SpecialSecurityAssessment(object):
             return res
         _file = stash[0].File
         for k in keys:
+            if not UnitItem(file="magicfoo", section="Service", key=k).IsValidInVersion(self.__version):
+                continue
             for x in [x for x in stash if x.Key == k if x.Value]:
                 res.append(UnitItem(file=x.File, line=x.Line, preerror=[
                     ErrorSecurity(
@@ -368,64 +391,70 @@ class SpecialSecurityAssessment(object):
         return res
 
     def __assess_sys_call_arch(self, stash):
-        res=[]
+        res = []
         if not stash:
             return res
-        _file=stash[0].File
-        _hits=[x for x in stash if x.Key == "SystemCallArchitectures"]
+        _file = stash[0].File
+        if not UnitItem(file="magicfoo", section="Service", key="SystemCallArchitectures").IsValidInVersion(self.__version):
+            return res
+        _hits = [x for x in stash if x.Key == "SystemCallArchitectures"]
         if not _hits:
             res.append(UnitItem(file=_file, line="1", preerror=[
-                    ErrorSecurity(
-                        "Service should have {} being set".format("SystemCallArchitectures"), _file, "SystemCallArchitecturesNA")
-                ]))
+                ErrorSecurity(
+                    "Service should have {} being set".format("SystemCallArchitectures"), _file, "SystemCallArchitecturesNA")
+            ]))
         elif not any([x.Value == "native" for x in _hits]):
             res.append(UnitItem(file=_file, line="1", preerror=[
-                    ErrorSecurity(
-                        "Service can call multiple ABIs according to {}".format("SystemCallArchitectures"), _file, 
-                        "SystemCallArchitecturesMult", severity="warning")
-                ]))
+                ErrorSecurity(
+                    "Service can call multiple ABIs according to {}".format(
+                        "SystemCallArchitectures"), _file,
+                    "SystemCallArchitecturesMult", severity="warning")
+            ]))
         return res
 
     def __assess_umask(self, stash):
-        res=[]
+        res = []
         if not stash:
             return res
-        _file=stash[0].File
+        _file = stash[0].File
+        if not UnitItem(file="magicfoo", section="Service", key="UMask").IsValidInVersion(self.__version):
+            return res
         for x in [x for x in stash if x.Key == "UMask"]:
             try:
                 _val = x.Value
                 if _val == "infinity":
                     _val = str(sys.maxsize)
-                _mask=int(_val, 8)
+                _mask = int(_val, 8)
                 if (_mask & int("0002", 8)):
                     res.append(UnitItem(file=x.File, line=x.Line, preerror=[
-                            ErrorSecurity(
-                                "Files created by service are world-writeable", x.File, "UMaskOW", x.Line)
-                        ]))
+                        ErrorSecurity(
+                            "Files created by service are world-writeable", x.File, "UMaskOW", x.Line)
+                    ]))
                 elif (_mask & int("0004", 8)):
                     res.append(UnitItem(file=x.File, line=x.Line, preerror=[
-                            ErrorSecurity(
-                                "Files created by service are world-readbale", x.File, "UMaskOR", x.Line)
-                        ]))
+                        ErrorSecurity(
+                            "Files created by service are world-readbale", x.File, "UMaskOR", x.Line)
+                    ]))
                 elif (_mask & int("0020", 8)):
                     res.append(UnitItem(file=x.File, line=x.Line, preerror=[
-                            ErrorSecurity(
-                                "Files created by service are group-writeable", x.File, "UMaskGW", x.Line, severity="warning")
-                        ]))
+                        ErrorSecurity(
+                            "Files created by service are group-writeable", x.File, "UMaskGW", x.Line, severity="warning")
+                    ]))
                 elif (_mask & int("0040", 8)):
                     res.append(UnitItem(file=x.File, line=x.Line, preerror=[
-                            ErrorSecurity(
-                                "Files created by service are group-readbale", x.File, "UMaskGR", x.Line, severity="info")
-                        ]))
+                        ErrorSecurity(
+                            "Files created by service are group-readbale", x.File, "UMaskGR", x.Line, severity="info")
+                    ]))
             except:
                 pass
         return res
 
-    def Run(self, stash):
-        uniqunits=list(set([x.UnitName for x in stash if any(
+    def Run(self, stash, runargs):
+        self.__version = runargs.sversion
+        uniqunits = list(set([x.UnitName for x in stash if any(
             [x.File.endswith(y) for y in [".service", ".conf"]])]))
         for u in uniqunits:
-            _sub_stash=[x for x in stash if x.UnitName == u]
+            _sub_stash = [x for x in stash if x.UnitName == u]
             # User
             stash += self.__access_user(_sub_stash)
             # SupplementaryGroups
@@ -494,13 +523,13 @@ class SpecialSecurityAssessment(object):
         return stash
 
 
-SPECIALS_SINGLEITEM= [
+SPECIALS_SINGLEITEM = [
     SpecialTypeOneShotExecStart(),
     SpecialForwardReverseOption()
 
 ]
 
-SPECIALS_ALLITEMS= [
+SPECIALS_ALLITEMS = [
     SpecialRestartAlwaysConflicts(),
     SpecialDepCycle(),
     SpecialSecurityAssessment()

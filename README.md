@@ -78,6 +78,105 @@ example:
 * OptionDeprecated - The used option is not available anymore in this version
 * OptionTooNew - The used option will be available in a later version than used
 * ReferencedUnitNotFound - The unit referenced was not found in system
+* Security.@clock - SystemCallFilter shouldn't contain @clock 
+* Security.@cpu-emulation - SystemCallFilter shouldn't contain @cpu-emulation 
+* Security.@debug - SystemCallFilter shouldn't contain @debug 
+* Security.@module - SystemCallFilter shouldn't contain @module 
+* Security.@mount - SystemCallFilter shouldn't contain @mount 
+* Security.@obsolete - SystemCallFilter shouldn't contain @obsolete
+* Security.@privileged - SystemCallFilter shouldn't contain @privileged 
+* Security.@raw-io - SystemCallFilter shouldn't contain @raw-io 
+* Security.@reboot - SystemCallFilter shouldn't contain @reboot 
+* Security.@resources - SystemCallFilter shouldn't contain @resources 
+* Security.@swap - SystemCallFilter shouldn't contain @swap
+* Security.AF_INET - RestrictAddressFamilies shouldn't contain AF_INET 
+* Security.AF_INET6 - RestrictAddressFamilies shouldn't contain AF_INET6 
+* Security.AF_NETLINK - RestrictAddressFamilies shouldn't contain AF_NETLINK 
+* Security.AF_PACKET - RestrictAddressFamilies shouldn't contain AF_PACKET 
+* Security.AF_UNIX - RestrictAddressFamilies shouldn't contain AF_UNIX
+* Security.CAP_AUDIT_CONTROL - CapabilityBoundingSet shouldn't contain CAP_AUDIT_CONTROL 
+* Security.CAP_AUDIT_READ - CapabilityBoundingSet shouldn't contain CAP_AUDIT_READ 
+* Security.CAP_AUDIT_WRITE - CapabilityBoundingSet shouldn't contain CAP_AUDIT_WRITE 
+* Security.CAP_BLOCK_SUSPEND - CapabilityBoundingSet shouldn't contain CAP_BLOCK_SUSPEND
+* Security.CAP_CHOWN - CapabilityBoundingSet shouldn't contain CAP_CHOWN 
+* Security.CAP_DAC_OVERRIDE - CapabilityBoundingSet shouldn't contain CAP_DAC_OVERRIDE 
+* Security.CAP_DAC_READ_SEARCH - CapabilityBoundingSet shouldn't contain CAP_DAC_READ_SEARCH 
+* Security.CAP_FOWNER - CapabilityBoundingSet shouldn't contain CAP_FOWNER
+* Security.CAP_FSETID - CapabilityBoundingSet shouldn't contain CAP_FSETID 
+* Security.CAP_IPC_LOCK - CapabilityBoundingSet shouldn't contain CAP_IPC_LOCK 
+* Security.CAP_IPC_OWNER - CapabilityBoundingSet shouldn't contain CAP_IPC_OWNER 
+* Security.CAP_KILL - CapabilityBoundingSet shouldn't contain CAP_KILL 
+* Security.CAP_LEASE - CapabilityBoundingSet shouldn't contain CAP_LEASE
+* Security.CAP_LINUX_IMMUTABLE - CapabilityBoundingSet shouldn't contain CAP_LINUX_IMMUTABLE 
+* Security.CAP_MAC_ADMIN - CapabilityBoundingSet shouldn't contain CAP_MAC_ADMIN 
+* Security.CAP_MAC_OVERRIDE - CapabilityBoundingSet shouldn't contain CAP_MAC_OVERRIDE 
+* Security.CAP_MKNOD - CapabilityBoundingSet shouldn't contain CAP_MKNOD
+* Security.CAP_NET_ADMIN - CapabilityBoundingSet shouldn't contain CAP_NET_ADMIN 
+* Security.CAP_NET_BIND_SERVICE - CapabilityBoundingSet shouldn't contain CAP_NET_BIND_SERVICE 
+* Security.CAP_NET_BROADCAST - CapabilityBoundingSet shouldn't contain CAP_NET_BROADCAST 
+* Security.CAP_NET_RAW - CapabilityBoundingSet shouldn't contain CAP_NET_RAW
+* Security.CAP_RAWIO - CapabilityBoundingSet shouldn't contain CAP_RAWIO 
+* Security.CAP_SETFCAP - CapabilityBoundingSet shouldn't contain CAP_SETFCAP 
+* Security.CAP_SETGID - CapabilityBoundingSet shouldn't contain CAP_SETGID 
+* Security.CAP_SETPCAP - CapabilityBoundingSet shouldn't contain CAP_SETPCAP 
+* Security.CAP_SETUID - CapabilityBoundingSet shouldn't contain CAP_SETUID
+* Security.CAP_SYS_ADMIN - CapabilityBoundingSet shouldn't contain CAP_SYS_ADMIN 
+* Security.CAP_SYS_BOOT - CapabilityBoundingSet shouldn't contain CAP_SYS_BOOT 
+* Security.CAP_SYS_CHROOT - CapabilityBoundingSet shouldn't contain CAP_SYS_CHROOT 
+* Security.CAP_SYS_MODULE - CapabilityBoundingSet shouldn't contain CAP_SYS_MODULE
+* Security.CAP_SYS_NICE - CapabilityBoundingSet shouldn't contain CAP_SYS_NICE 
+* Security.CAP_SYS_PACCT - CapabilityBoundingSet shouldn't contain CAP_SYS_PACCT 
+* Security.CAP_SYS_PTRACE - CapabilityBoundingSet shouldn't contain CAP_SYS_PTRACE 
+* Security.CAP_SYS_RESOURCE - CapabilityBoundingSet shouldn't contain CAP_SYS_RESOURCE
+* Security.CAP_SYS_TIME - CapabilityBoundingSet shouldn't contain CAP_SYS_TIME 
+* Security.CAP_SYS_TTY_CONFIG - CapabilityBoundingSet shouldn't contain CAP_SYS_TTY_CONFIG 
+* Security.CAP_SYSLOG - CapabilityBoundingSet shouldn't contain CAP_SYSLOG 
+* Security.CAP_WAKE_ALARM - CapabilityBoundingSet shouldn't contain CAP_WAKE_ALARM
+* Security.CLONE_NEWCGROUP - RestrictNamespaces shouldn't contain CLONE_NEWCGROUP 
+* Security.CLONE_NEWIPC - RestrictNamespaces shouldn't contain CLONE_NEWIPC 
+* Security.CLONE_NEWNET - RestrictNamespaces shouldn't contain CLONE_NEWNET 
+* Security.CLONE_NEWNS - RestrictNamespaces shouldn't contain CLONE_NEWNS
+* Security.CLONE_NEWPID - RestrictNamespaces shouldn't contain CLONE_NEWPID 
+* Security.CLONE_NEWUSER - RestrictNamespaces shouldn't contain CLONE_NEWUSER 
+* Security.CLONE_NEWUTS - RestrictNamespaces shouldn't contain CLONE_NEWUTS
+* Security.Delegate - Delegate shall be set to yes 
+* Security.DevicePolicy - DevicePolicy should be set to closed
+* Security.IPAddressDenyNA - IPAddressDeny shall be set
+* Security.KeyringModeNA - KeyringMode shall be set
+* Security.KeyringModeNPriv - KeyringMode shall be set to private
+* Security.LockPersonality - LockPersonality shall be set to yes 
+* Security.MemoryDenyWriteExecute - MemoryDenyWriteExecute shall be set to yes 
+* Security.NoNewPrivileges - NoNewPrivileges shall be set to yes
+* Security.NotifyAccess - NotifyAccess=all should be avoided
+* Security.NoUser - No user is set for the service
+* Security.PrivateDevices - PrivateDevices shall be set to yes 
+* Security.PrivateMounts - PrivateMounts shall be set to yes 
+* Security.PrivateNetwork - PrivateNetwork shall be set to yes 
+* Security.PrivateTmp - PrivateTmp shall be set to yes
+* Security.PrivateUsers - PrivateUsers shall be set to yes 
+* Security.ProtectClock - ProtectClock shall be set to yes 
+* Security.ProtectControlGroups - ProtectControlGroups shall be set to yes 
+* Security.ProtectHomeNA - ProtectHome shall be set
+* Security.ProtectHomeOff - ProtectHome shall be set to yes
+* Security.ProtectHostname - ProtectHostname shall be set to yes
+* Security.ProtectKernelLogs - ProtectKernelLogs shall be set to yes 
+* Security.ProtectKernelModules - ProtectKernelModules shall be set to yes 
+* Security.ProtectKernelTunables - ProtectKernelTunables shall be set to yes
+* Security.ProtectSystemNA - ProtectSystem shall be set
+* Security.ProtectSystemNStrict - ProtectSystem shall be set to strict
+* Security.RemoveIPC - RemoveIPC should be activated
+* Security.RestrictRealtime - RestrictRealtime shall be set to yes 
+* Security.RestrictSUIDSGID - RestrictSUIDSGID shall be set to yes
+* Security.RootDirectory - RootDirectory or RootImage shall be set to a non-root path
+* Security.SupplementaryGroups - SupplementaryGroups shall be avoided
+* Security.SystemCallArchitecturesMult - SystemCallArchitectures shouldn't be set for multiple archs
+* Security.SystemCallArchitecturesNA - SystemCallArchitectures shall be set
+* Security.UMaskGR - Files created by service are group-readbale
+* Security.UMaskGW - Files created by service are group-writeable
+* Security.UMaskOR - Files created by service are world-readbale
+* Security.UMaskOW - Files created by service are world-writeable
+* Security.UserNobody - User nobody is set for the service
+* Security.UserRoot - User root is set for the service
 * SettingRequires - The option requires another option to be set
 * SettingRestricted - The option can't be set due to another option
 * SyntaxError - The file is not parsable

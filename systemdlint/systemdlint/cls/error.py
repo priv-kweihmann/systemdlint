@@ -151,3 +151,7 @@ class ErrorCyclicDependency(Error):
     def __init__(self, depchain, line, file):
         super().__init__("error", "ErrorCyclicDependency",
                          "Unit creates a cyclic dependency. Chain is {}".format("->".join(depchain)), line, file)
+
+class ErrorSecurity(Error):
+    def __init__(self, msg, file, subid, line=1, severity="error"):
+        super().__init__(severity, "Security.{}".format(subid), msg, line, file)

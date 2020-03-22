@@ -1,3 +1,4 @@
+import os
 import re
 import sys
 
@@ -448,11 +449,18 @@ class SpecialSecurityAssessment(object):
             except:
                 pass
         return res
+    
+    def __is_matching_unit(self, item):
+        _file, _ext = os.path.splitext(item.File)
+        if _ext in [".service"]:
+            return True
+        if _ext in [".conf"]:
+            return os.path.basename(os.path.dirname(_file)).endswith(".service.d")
+        return False
 
     def Run(self, stash, runargs):
         self.__version = runargs.sversion
-        uniqunits = list(set([x.UnitName for x in stash if any(
-            [x.File.endswith(y) for y in [".service", ".conf"]])]))
+        uniqunits = list(set([x.UnitName for x in stash if self.__is_matching_unit(x)]))
         for u in uniqunits:
             _sub_stash = [x for x in stash if x.UnitName == u]
             # User

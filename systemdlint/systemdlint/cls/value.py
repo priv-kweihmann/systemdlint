@@ -18,6 +18,7 @@ from systemdlint.cls.error import ErrorNoExecutable
 from systemdlint.cls.error import ErrorRefUnitNotFound
 from systemdlint.cls.helper import Helper
 from systemdlint.conf.knownPaths import KNOWN_PATHS
+from systemdlint.conf.knownUnits import KNOWN_RUNTIME_UNITS
 from systemdlint.conf.knownUnits import KNOWN_UNITS_EXT
 
 
@@ -528,6 +529,9 @@ class UnitListValue(Value):
             # Skip unit with templates for now
             _file, fileext = os.path.splitext(k)
             if "@" in k or "%" in k or fileext not in KNOWN_UNITS_EXT:
+                found = True
+            elif fileext in KNOWN_RUNTIME_UNITS:
+                # In case referenced unit is generated at runtime
                 found = True
             else:
                 for p in KNOWN_PATHS:

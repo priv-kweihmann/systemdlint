@@ -19,3 +19,6 @@ KNOWN_UNITS_MUST_HAVE_UNITSECTION = [
     ".socket",
     ".target"
 ]
+KNOWN_RUNTIME_UNITS = [
+    ".slice"
+]

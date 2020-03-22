@@ -28,6 +28,23 @@ optional arguments:
   --output OUTPUT      Where to flush the findings (default: stderr)
 ```
 
+## Why should I use it?
+
+Surely you can use `systemd-analyze verify [unitname]` to validate your units - no problem and it's
+the recommended way if you writing units for the system you are currently running on.
+Unfortunately systemd doesn't offer a validation which doesn't require an already running version of
+systemd you want to validate against.
+
+This tool was initially created to check units in cross-compiled embedded images at build time,
+where you can't run a copy of systemd (as it's cross-compiled).
+As a consequence it doesn't use any systemd code and might interpret some settings differently than
+systemd itself - as with every linter take the outcomes as a basis for further analysis.
+Also keep in mind, that systemd does create a larger stack of runtime files, which are not
+taken into account by the tool - same for kernel related information like /dev, /sys or /proc
+entries.
+
+Furthermore the tool gives you advice how your unit files could be hardened.
+
 ## Installation
 
 ### PyPi

@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Journal]
+RuntimeMaxUse=10000000000000E
+

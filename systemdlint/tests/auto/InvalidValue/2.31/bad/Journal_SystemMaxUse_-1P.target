@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Journal]
+SystemMaxUse=-1P
+

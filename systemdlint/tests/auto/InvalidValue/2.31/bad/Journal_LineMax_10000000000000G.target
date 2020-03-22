@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Journal]
+LineMax=10000000000000G
+

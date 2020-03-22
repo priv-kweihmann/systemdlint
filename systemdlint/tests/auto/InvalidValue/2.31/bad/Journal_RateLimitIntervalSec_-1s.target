@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Journal]
+RateLimitIntervalSec=-1s
+

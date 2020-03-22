@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Journal]
+MaxFileSec=9999999999999year
+

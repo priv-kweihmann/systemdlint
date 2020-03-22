@@ -8,6 +8,7 @@ from systemdlint.cls.value import DeviceNodeValue
 from systemdlint.cls.value import EitherValue
 from systemdlint.cls.value import EmptyValue
 from systemdlint.cls.value import EnumValue
+from systemdlint.cls.value import ErrorTypeValue
 from systemdlint.cls.value import ExecValue
 from systemdlint.cls.value import GroupsValue
 from systemdlint.cls.value import HexValue
@@ -554,7 +555,7 @@ KNOWN_SETTINGS = [
     Setting(section="Mount", name="SyslogLevel", allowedValue=EnumValue(["emerg", "alert", "crit", "err", "warning", "notice", "info", "debug"])),
     Setting(section="Mount", name="SyslogLevelPrefix", allowedValue=BooleanValue()),
     Setting(section="Mount", name="SystemCallArchitectures", allowedValue=TextValue()),
-    Setting(section="Mount", name="SystemCallErrorNumber", allowedValue=NumericValue(lower=0, upper=4095)),
+    Setting(section="Mount", name="SystemCallErrorNumber", allowedValue=EitherValue([ErrorTypeValue(), NumericValue(lower=1, upper=4095)])),
     Setting(section="Mount", name="SystemCallFilter", allowedValue=TextValue()),
     Setting(section="Mount", name="TasksAccounting", allowedValue=BooleanValue(), sinceRel="2.27"),
     Setting(section="Mount", name="TasksMax", allowedValue=NumericValue(lower=1, specials=["infinity"]), sinceRel="2.27"),
@@ -852,7 +853,7 @@ KNOWN_SETTINGS = [
     Setting(section="Service", name="SyslogLevel", allowedValue=EnumValue(["emerg", "alert", "crit", "err", "warning", "notice", "info", "debug"])),
     Setting(section="Service", name="SyslogLevelPrefix", allowedValue=BooleanValue()),
     Setting(section="Service", name="SystemCallArchitectures", allowedValue=TextValue()),
-    Setting(section="Service", name="SystemCallErrorNumber", allowedValue=NumericValue(lower=0, upper=4095)),
+    Setting(section="Service", name="SystemCallErrorNumber", allowedValue=EitherValue([ErrorTypeValue(), NumericValue(lower=1, upper=4095)])),
     Setting(section="Service", name="SystemCallFilter", allowedValue=TextValue()),
     Setting(section="Service", name="TasksAccounting", allowedValue=BooleanValue(), sinceRel="2.27"),
     Setting(section="Service", name="TasksMax", allowedValue=NumericValue(lower=1, specials=["infinity"]), sinceRel="2.27"),
@@ -1077,7 +1078,7 @@ KNOWN_SETTINGS = [
     Setting(section="Socket", name="SyslogLevel", allowedValue=EnumValue(["emerg", "alert", "crit", "err", "warning", "notice", "info", "debug"])),
     Setting(section="Socket", name="SyslogLevelPrefix", allowedValue=BooleanValue()),
     Setting(section="Socket", name="SystemCallArchitectures", allowedValue=TextValue()),
-    Setting(section="Socket", name="SystemCallErrorNumber", allowedValue=NumericValue(lower=0, upper=4095)),
+    Setting(section="Socket", name="SystemCallErrorNumber", allowedValue=EitherValue([ErrorTypeValue(), NumericValue(lower=1, upper=4095)])),
     Setting(section="Socket", name="SystemCallFilter", allowedValue=TextValue()),
     Setting(section="Socket", name="TasksAccounting", allowedValue=BooleanValue(), sinceRel="2.27"),
     Setting(section="Socket", name="TasksMax", allowedValue=NumericValue(lower=1, specials=["infinity"]), sinceRel="2.27"),
@@ -1253,7 +1254,7 @@ KNOWN_SETTINGS = [
     Setting(section="Swap", name="SyslogLevel", allowedValue=EnumValue(["emerg", "alert", "crit", "err", "warning", "notice", "info", "debug"])),
     Setting(section="Swap", name="SyslogLevelPrefix", allowedValue=BooleanValue()),
     Setting(section="Swap", name="SystemCallArchitectures", allowedValue=TextValue()),
-    Setting(section="Swap", name="SystemCallErrorNumber", allowedValue=NumericValue(lower=0, upper=4095)),
+    Setting(section="Swap", name="SystemCallErrorNumber", allowedValue=EitherValue([ErrorTypeValue(), NumericValue(lower=1, upper=4095)])),
     Setting(section="Swap", name="SystemCallFilter", allowedValue=TextValue()),
     Setting(section="Swap", name="TasksAccounting", allowedValue=BooleanValue(), sinceRel="2.27"),
     Setting(section="Swap", name="TasksMax", allowedValue=NumericValue(lower=1, specials=["infinity"]), sinceRel="2.27"),

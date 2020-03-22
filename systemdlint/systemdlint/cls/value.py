@@ -107,9 +107,9 @@ class NumericValue(Value):
             charSet = string.octdigits
         if val2 in self.__specials:
             return True
-        return (all(c in charSet for c in val2) and \
-               int(val, self.__numberBase) >= self.__boundaries[0] and \
-               int(val, self.__numberBase) <= self.__boundaries[-1])
+        return (all(c in charSet for c in val2) and
+                int(val, self.__numberBase) >= self.__boundaries[0] and
+                int(val, self.__numberBase) <= self.__boundaries[-1])
 
     def AdditionalErrors(self, value, item, runargs):
         res = []
@@ -153,6 +153,7 @@ class NumericValue(Value):
                     res.append(i + 1)
         return res
 
+
 class HexValue(NumericValue):
     def __init__(self, lower=0, upper=9999999999999, base=1, suffixes=[], specials=[], conditional={}):
         super().__init__(lower=lower, upper=upper, base=base, suffixes=suffixes,
@@ -189,6 +190,7 @@ class HexValue(NumericValue):
                     res.append("{:02x}".format(i))
         return res
 
+
 class TextValue(Value):
     def __init__(self, conditional={}):
         super().__init__(conditional)
@@ -202,6 +204,7 @@ class TextValue(Value):
     def GetInvalidValues(self):
         return []
 
+
 class EmptyValue(Value):
     def __init__(self, conditional={}):
         super().__init__(conditional)
@@ -214,6 +217,7 @@ class EmptyValue(Value):
 
     def GetInvalidValues(self):
         return ["a"]
+
 
 class IPValue(Value):
     def __init__(self, conditional={}):
@@ -461,6 +465,29 @@ class SignalValue(EnumListValue):
                     "SIGPOLL", "SIGPROF", "SIGSYS", "SIGTRAP", "SIGURG", "SIGVTALRM", "SIGXCPU",
                     "SIGXFSZ", "SIGIOT", "SIGEMT", "SIGSTKFLT", "SIGIO", "SIGCLD", "SIGPWR", "SIGINFO",
                     "SIGLOST", "SIGWINCH", "SIGUNUSED", "DATAERR"]
+        super().__init__(signals, conditional)
+
+
+class ErrorTypeValue(EnumListValue):
+    def __init__(self, conditional={}):
+        signals = ["E2BIG", "EACCES", "EADDRINUSE", "EADDRNOTAVAIL", "EAFNOSUPPORT", "EAGAIN", 
+                   "EALREADY", "EBADE", "EBADF", "EBADFD", "EBADMSG", "EBADR", "EBADRQC", "EBADSLT", 
+                   "EBUSY", "ECANCELED", "ECHILD", "ECHRNG", "ECOMM", "ECONNABORTED", "ECONNREFUSED", 
+                   "ECONNRESET", "EDEADLK", "EDEADLOCK", "EDESTADDRREQ", "EDOM", "EDQUOT", "EEXIST", 
+                   "EFAULT", "EFBIG", "EHOSTDOWN", "EHOSTUNREACH", "EHWPOISON", "EIDRM", "EILSEQ", 
+                   "EINPROGRESS", "EINTR", "EINVAL", "EIO", "EISCONN", "EISDIR", "EISNAM", "EKEYEXPIRED", 
+                   "EKEYREJECTED", "EKEYREVOKED", "EL2HLT", "EL2NSYNC", "EL3HLT", "EL3RST", "ELIBACC", 
+                   "ELIBBAD", "ELIBEXEC", "ELIBMAX", "ELIBSCN", "ELNRANGE", "ELOOP", "EMEDIUMTYPE", 
+                   "EMFILE", "EMLINK", "EMSGSIZE", "EMULTIHOP", "ENAMETOOLONG", "ENETDOWN", "ENETRESET", 
+                   "ENETUNREACH", "ENFILE", "ENOANO", "ENOBUFS", "ENODATA", "ENODEV", "ENOENT", "ENOEXEC", 
+                   "ENOKEY", "ENOLCK", "ENOLINK", "ENOMEDIUM", "ENOMEM", "ENOMSG", "ENONET", "ENOPKG", 
+                   "ENOPROTOOPT", "ENOSPC", "ENOSR", "ENOSTR", "ENOSYS", "ENOTBLK", "ENOTCONN", "ENOTDIR", 
+                   "ENOTEMPTY", "ENOTRECOVERABLE", "ENOTSOCK", "ENOTSUP", "ENOTTY", "ENOTUNIQ", "ENXIO", 
+                   "EOPNOTSUPP", "EOVERFLOW", "EOWNERDEAD", "EPERM", "EPFNOSUPPORT", "EPIPE", "EPROTO", 
+                   "EPROTONOSUPPORT", "EPROTOTYPE", "ERANGE", "EREMCHG", "EREMOTE", "EREMOTEIO", "ERESTART", 
+                   "ERFKILL", "EROFS", "ESHUTDOWN", "ESOCKTNOSUPPORT", "ESPIPE", "ESRCH", "ESTALE", 
+                   "ESTRPIPE", "ETIME", "ETIMEDOUT", "ETOOMANYREFS", "ETXTBSY", "EUCLEAN", "EUNATCH", 
+                   "EUSERS", "EWOULDBLOCK", "EXDEV", "EXFULL"]
         super().__init__(signals, conditional)
 
 

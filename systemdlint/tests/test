@@ -27,7 +27,7 @@ def run_tc(_file):
     _preamble = "Testing: {}:{}@{} expect to be {} ...".format(
         _errorID, _testfile, _version, _result)
     _cmdout = ""
-    _args = ["systemdlint", "--sversion={}".format(_version)]
+    _args = ["python3", "-m", "systemdlint", "--sversion={}".format(_version)]
     _workspace = os.path.join(_basepath, "workspace",
                               _errorID, _version, _result, _testfile)
     _ws_files = []
@@ -89,7 +89,7 @@ for _file in glob.glob(_basepath + "/**/*", recursive=True):
     _files.append(_file)
 
 # Run in pool
-p = Pool(processes=cpu_count() * 2)
+p = Pool(processes=cpu_count() * 10)
 _map = p.map(run_tc, _files)
 
 if not all([x for x in _map]):

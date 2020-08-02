@@ -102,7 +102,7 @@ class NumericValue(Value):
         val2 = val.lstrip("-")
         charSet = string.digits
         if self.__numberBase == 16:
-            charSet = string.hexdigits
+            charSet = string.hexdigits + "x"
         elif self.__numberBase == 8:
             charSet = string.octdigits
         if val2 in self.__specials:
@@ -117,7 +117,7 @@ class NumericValue(Value):
             val = self.__getPlainValue(value)
             if val in self.__specials:
                 return res
-            x = int(val)
+            x = int(val, self.__numberBase)
             if x % self.Base != 0:
                 res.append(ErrorInvalidNumericBase(
                     item.Key, self.Base, item.Line, item.File))
@@ -128,29 +128,51 @@ class NumericValue(Value):
     def GetAllowedValues(self, baseOnly=False):
         res = []
         _suffixess = self.__suffixes or [""]
+        __lower = self.__boundaries[0]
+        __upper = self.__boundaries[-1]
+        if self.__numberBase == 16:
+            __lower = hex(__lower)
+            __upper = hex(__upper)
+        if self.__numberBase == 8:
+            __lower = oct(__lower)
+            __upper = oct(__upper)
         if not baseOnly:
             for x in _suffixess:
-                res.append("{}{}".format(self.__boundaries[0], x))
-                res.append("{}{}".format(self.__boundaries[-1], x))
+                res.append("{}{}".format(__lower, x))
+                res.append("{}{}".format(__upper, x))
             for x in self.__specials:
                 res.append(x)
         else:
             if self.Base != 1:
                 for i in range(self.Base, self.Base * 10, self.Base):
-                    res.append(i)
+                    if self.__numberBase == 16:
+                        res.append(hex(i))
+                    if self.__numberBase == 8:
+                        res.append(oct(i))
         return res
 
     def GetInvalidValues(self, baseOnly=False):
         res = []
         _suffixess = self.__suffixes or [""]
+        __lower = self.__boundaries[0] - 1
+        __upper = self.__boundaries[-1] + 1
+        if self.__numberBase == 16:
+            __lower = hex(__lower)
+            __upper = hex(__upper)
+        if self.__numberBase == 8:
+            __lower = oct(__lower)
+            __upper = oct(__upper)
         if not baseOnly:
             for x in _suffixess:
-                res.append("{}{}".format(self.__boundaries[0] - 1, x))
-                res.append("{}{}".format(self.__boundaries[-1] + 1, x))
+                res.append("{}{}".format(__lower, x))
+                res.append("{}{}".format(__upper, x))
         else:
             if self.Base != 1:
                 for i in range(self.Base, self.Base * 10, self.Base):
-                    res.append(i + 1)
+                    if self.__numberBase == 16:
+                        res.append(hex(i + 1))
+                    if self.__numberBase == 8:
+                        res.append(oct(i + 1))
         return res
 
 

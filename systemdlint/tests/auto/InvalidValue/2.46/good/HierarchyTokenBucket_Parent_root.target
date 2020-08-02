@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[HierarchyTokenBucket]
+Parent=root
+

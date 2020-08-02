@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[HierarchyTokenBucketClass]
+Rate=10000000000000G
+

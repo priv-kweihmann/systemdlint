@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[PFIFOHeadDrop]
+Handle=0x1
+

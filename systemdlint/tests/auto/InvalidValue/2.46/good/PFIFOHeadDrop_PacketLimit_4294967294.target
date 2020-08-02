@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[PFIFOHeadDrop]
+PacketLimit=4294967294
+

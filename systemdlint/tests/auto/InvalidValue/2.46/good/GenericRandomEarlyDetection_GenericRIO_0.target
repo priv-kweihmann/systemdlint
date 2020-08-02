@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[GenericRandomEarlyDetection]
+GenericRIO=0
+

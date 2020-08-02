@@ -1,0 +1,6 @@
+[Unit]
+Description=Foo
+[Link]
+MACAddress=abc
+Group=4294967294
+

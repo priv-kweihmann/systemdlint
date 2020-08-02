@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[CAN]
+BitRate=4294967295M
+

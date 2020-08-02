@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[QuickFairQueueing]
+Handle=0x10000
+

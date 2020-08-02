@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[SR-IOV]
+VLANProtocol=802.1Q
+

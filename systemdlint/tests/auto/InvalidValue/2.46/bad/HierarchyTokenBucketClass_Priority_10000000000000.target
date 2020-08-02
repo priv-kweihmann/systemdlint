@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[HierarchyTokenBucketClass]
+Priority=10000000000000
+

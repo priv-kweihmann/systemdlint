@@ -2,5 +2,5 @@
 Description=Foo
 [NetDev]
 Name=abc
-MACAddress=abc
+MACAddress=True
 

@@ -1,0 +1,6 @@
+[Unit]
+Description=Foo
+[Peer]
+Name=abc
+MACAddress=00-11-22-GG-44-55
+

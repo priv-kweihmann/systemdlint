@@ -1,0 +1,6 @@
+[Unit]
+Description=Foo
+[Link]
+MACAddress=01:23:45:67:89:ab 00-11-22-33-44-55 AABB.CCDD.EEFF
+MACAddress=True 01:23:45:67:89 00-11-22-GG-44-55 AABB:CCDD:EEFF
+

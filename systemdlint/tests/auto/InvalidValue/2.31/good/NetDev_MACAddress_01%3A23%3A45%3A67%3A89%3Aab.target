@@ -1,0 +1,6 @@
+[Unit]
+Description=Foo
+[NetDev]
+Name=abc
+MACAddress=01:23:45:67:89:ab
+

@@ -1,0 +1,6 @@
+[Unit]
+Description=Foo
+[BridgeFDB]
+MACAddress=01:23:45:67:89:ab
+MACAddress=True
+

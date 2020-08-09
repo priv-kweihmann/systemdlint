@@ -1,5 +1,5 @@
 [Unit]
 Description=Foo
 [EnhancedTransmissionSelection]
-PriorityMap=abc
+PriorityMap=-1 10000000000000
 

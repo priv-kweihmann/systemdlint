@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Match]
+PermanentMACAddress=01:23:45:67:89:ab 00-11-22-33-44-55 AABB.CCDD.EEFF
+

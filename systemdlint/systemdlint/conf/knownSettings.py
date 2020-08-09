@@ -15,6 +15,8 @@ from systemdlint.cls.value import HexValue
 from systemdlint.cls.value import IPorUrlValue
 from systemdlint.cls.value import IPValue
 from systemdlint.cls.value import KeyValuePairListValue
+from systemdlint.cls.value import ListOf
+from systemdlint.cls.value import MacAddressValue
 from systemdlint.cls.value import MountPathValue
 from systemdlint.cls.value import NumericValue
 from systemdlint.cls.value import OctalModeValue
@@ -85,7 +87,7 @@ KNOWN_SETTINGS = [
     Setting(section="Bridge", name="VLANProtocol", allowedValue=EnumValue(["802.1Q", "802.1ad"]), sinceRel="2.46"),
     Setting(section="BridgeFDB", name="AssociatedWith", allowedValue=EnumValue(["use", "self", "master", "router"]), sinceRel="2.43"),
     Setting(section="BridgeFDB", name="Destination", allowedValue=IPValue(), sinceRel="2.43"),
-    Setting(section="BridgeFDB", name="MACAddress", allowedValue=TextValue()), # TODO: MACAddress list parser
+    Setting(section="BridgeFDB", name="MACAddress", allowedValue=MacAddressValue()),
     Setting(section="BridgeFDB", name="VLANId", allowedValue=TextValue()),
     Setting(section="BridgeFDB", name="VNI", allowedValue=NumericValue(1, 16777215), sinceRel="2.43"),
     Setting(section="BridgeVLAN", name="EgressUntagged", allowedValue=TextValue(), requires=[Limitation(key="VLAN")]),
@@ -194,7 +196,7 @@ KNOWN_SETTINGS = [
     Setting(section="DHCPv4", sinceRel="2.43", name="VendorClassIdentifier", allowedValue=TextValue(), restricted=[Limitation(key="Anonymize", value=["1", "yes", "true"])]),
     Setting(section="DHCPv4", sinceRel="2.45", name="SendDecline", allowedValue=BooleanValue()),
     Setting(section="DHCPv6", name="PrefixDelegationHint", allowedValue=IPValue(), sinceRel="2.44"),
-    Setting(section="DHCPv6", name="RequestOptions", allowedValue=TextValue(), sinceRel="2.46"), ## TODO numeric list parser
+    Setting(section="DHCPv6", name="RequestOptions", allowedValue=ListOf(NumericValue()), sinceRel="2.46"),
     Setting(section="DHCPv6", name="SendOption", allowedValue=TextValue(), sinceRel="2.46"), ## TODO parser
     Setting(section="DHCPv6", name="VendorClass", allowedValue=TextValue(), sinceRel="2.46"),
     Setting(section="DHCPv6", name="WithoutRA", allowedValue=EnumValue(["solicit", "information-request"]), sinceRel="2.46"),
@@ -227,7 +229,7 @@ KNOWN_SETTINGS = [
     Setting(section="EnhancedTransmissionSelection", name="Bands", allowedValue=NumericValue(lower=1, upper=16), sinceRel="2.46"),
     Setting(section="EnhancedTransmissionSelection", name="Handle", allowedValue=NumericValue(lower=1, upper=0xffff, numberBase=16), sinceRel="2.46"),
     Setting(section="EnhancedTransmissionSelection", name="Parent", allowedValue=EitherValue([TextValue(), EnumValue(["root", "clsact", "ingress"])]), sinceRel="2.46"),
-    Setting(section="EnhancedTransmissionSelection", name="PriorityMap", allowedValue=TextValue(), sinceRel="2.46"), ## TODO: numeric list parser
+    Setting(section="EnhancedTransmissionSelection", name="PriorityMap", allowedValue=ListOf(NumericValue()), sinceRel="2.46"),
     Setting(section="EnhancedTransmissionSelection", name="QuantumBytes", allowedValue=NumericValue(base=1024, suffixes=["K", "M", "G"]), sinceRel="2.46"),
     Setting(section="EnhancedTransmissionSelection", name="StrictBands", allowedValue=NumericValue(lower=1, upper=16), sinceRel="2.46"),
     Setting(section="FairQueueing", name="Buckets", allowedValue=NumericValue(), sinceRel="2.45"),
@@ -372,7 +374,7 @@ KNOWN_SETTINGS = [
     Setting(section="Link", name="ARP", allowedValue=BooleanValue()),
     Setting(section="Link", name="AutoNegotiationFlowControl", allowedValue=BooleanValue(), sinceRel="2.46"),
     Setting(section="Link", name="Group", allowedValue=NumericValue(lower=0, upper=4294967294), sinceRel="2.46"),
-    Setting(section="Link", name="MACAddress", allowedValue=TextValue()), # TODO: MACAddress list parser
+    Setting(section="Link", name="MACAddress", allowedValue=ListOf(MacAddressValue())),
     Setting(section="Link", name="MACAddressPolicy", allowedValue=TextValue()), # TODO: parser
     Setting(section="Link", name="MTUBytes", allowedValue=NumericValue(suffixes=["K", "M", "G"], base=1024)),
     Setting(section="Link", name="Multicast", allowedValue=BooleanValue()),
@@ -465,16 +467,16 @@ KNOWN_SETTINGS = [
     Setting(section="Manager", name="TimerSlackNSec", allowedValue=TimeValue()),
     Setting(section="Manager", name="WatchdogDevice", allowedValue=DeviceNodeValue()),
     Setting(section="Match", name="Architecture", allowedValue=TextValue(conditional={"!": None})),
-    Setting(section="Match", name="Driver", allowedValue=TextValue(conditional={"!": None})), # TODO: glob path list parser
+    Setting(section="Match", name="Driver", allowedValue=ListOf(TextValue(), conditional={"!": None})),
     Setting(section="Match", name="Host", allowedValue=TextValue(conditional={"!": None})),
     Setting(section="Match", name="KernelCommandLine", allowedValue=TextValue(conditional={"!": None})),
     Setting(section="Match", name="KernelVersion", allowedValue=TextValue(conditional={"!": None})),
-    Setting(section="Match", name="MACAddress", allowedValue=TextValue()), # TODO: MACAddress list parser
-    Setting(section="Match", name="Name", allowedValue=TextValue(conditional={"!": None})), # TODO: glob path list parser
-    Setting(section="Match", name="Path", allowedValue=TextValue(conditional={"!": None})), # TODO: glob path list parser
-    Setting(section="Match", name="PermanentMACAddress", allowedValue=TextValue(), sinceRel="2.45"), # TODO: MACAddress list parser
+    Setting(section="Match", name="MACAddress", allowedValue=MacAddressValue()),
+    Setting(section="Match", name="Name", allowedValue=ListOf(TextValue(), conditional={"!": None})),
+    Setting(section="Match", name="Path", allowedValue=ListOf(TextValue(), conditional={"!": None})),
+    Setting(section="Match", name="PermanentMACAddress", allowedValue=ListOf(MacAddressValue()), sinceRel="2.45"),
     Setting(section="Match", name="Property", allowedValue=TextValue(), sinceRel="2.43"),
-    Setting(section="Match", name="Type", allowedValue=TextValue(conditional={"!": None})), # TODO: glob path list parser
+    Setting(section="Match", name="Type", allowedValue=ListOf(TextValue(), conditional={"!": None})),
     Setting(section="Match", name="Virtualization", allowedValue=TextValue(conditional={"!": None})),
     Setting(section="Match", name="WLANInterfaceType", allowedValue=EnumValue(value=["ad-hoc", "station", "ap", "ap-vlan", "wds", "monitor", "mesh-point", "p2p-client", "p2p-go", "p2p-device", "ocb", "nan"], conditional={"!": None }), sinceRel="2.44"),
     Setting(section="Mount", name="AmbientCapabilities", allowedValue=TextValue()),
@@ -576,7 +578,7 @@ KNOWN_SETTINGS = [
     Setting(section="Mount", name="NoNewPrivileges", allowedValue=BooleanValue(), sinceRel="2.39"),
     Setting(section="Mount", name="NUMAPolicy", allowedValue=EnumValue(["default", "preferred", "bind", "interleave", "local"]), sinceRel="2.43"),
     Setting(section="Mount", name="OOMScoreAdjust", allowedValue=NumericValue(lower=-1000, upper=1000)),
-    Setting(section="Mount", name="Options", allowedValue=TextValue()), # TODO parser comma seperated list
+    Setting(section="Mount", name="Options", allowedValue=ListOf(TextValue(), delimiter=",")),
     Setting(section="Mount", name="PAMName", allowedValue=TextValue()), # TODO PAM service lookup parser
     Setting(section="Mount", name="PassEnvironment", allowedValue=TextValue(), sinceRel="2.28"),
     Setting(section="Mount", name="Personality", allowedValue=EnumValue(["x86", "x86-64", "ppc", "ppc-le", "ppc64", "ppc64-le", "s390", "s390x"])),
@@ -656,11 +658,11 @@ KNOWN_SETTINGS = [
     Setting(section="Mount", name="Where", allowedValue=MountPathValue()),
     Setting(section="Mount", name="WorkingDirectory", allowedValue=PathValue(conditional={"~": None})),
     Setting(section="Neighbor", name="Address", allowedValue=IPValue()),
-    Setting(section="Neighbor", name="LinkLayerAddress", allowedValue=TextValue(), sinceRel="2.43"), # TODO: MACAddress list parser
-    Setting(section="Neighbor", name="MACAddress", allowedValue=TextValue(), tillRel="2.42"), # TODO: MACAddress list parser
+    Setting(section="Neighbor", name="LinkLayerAddress", allowedValue=ListOf(MacAddressValue()), sinceRel="2.43"),
+    Setting(section="Neighbor", name="MACAddress", allowedValue=ListOf(MacAddressValue()), tillRel="2.42"),
     Setting(section="NetDev", name="Description", allowedValue=TextValue()),
     Setting(section="NetDev", name="Kind", allowedValue=EnumValue(["bond", "bridge", "dummy", "gre", "gretap", "erspan", "ip6gre", "ip6tnl", "ip6gretap", "ipip", "ipvlan", "macvlan", "macvtap", "sit", "tap", "tun", "veth", "vlan", "vti", "vti6", "vxlan", "geneve", "l2tp", "vrf", "vcan", "vxcan", "wireguard", "netdevsim", "fou", "bridge", "dummy", "gre", "gretap", "erspan", "ip6gre", "ip6tnl", "ip6gretap", "ipip", "ipvlan", "macvlan", "macvtap", "sit", "tap", "tun", "veth", "vlan", "vti", "vti6", "vxlan", "geneve", "l2tp", "vrf", "vcan", "vxcan", "wireguard", "netdevsim", "fou"])),
-    Setting(section="NetDev", name="MACAddress", allowedValue=TextValue()), # TODO MAC address parser
+    Setting(section="NetDev", name="MACAddress", allowedValue=MacAddressValue()),
     Setting(section="NetDev", name="MTUBytes", allowedValue=NumericValue(suffixes=["K", "M", "G"], base=1024)),
     Setting(section="NetDev", name="Name", allowedValue=TextValue()),
     Setting(section="Network", name="ActiveSlave", allowedValue=BooleanValue(), restricted=[Limitation(key="Mode", value=["active-backup", "balance-alb", "balance-tlb"], section="Bond", file="ignore")]),
@@ -724,7 +726,7 @@ KNOWN_SETTINGS = [
     Setting(section="Path", name="PathExistsGlob", allowedValue=TextValue()), # TODO parser
     Setting(section="Path", name="PathModified", allowedValue=AbsolutePathListValue()),
     Setting(section="Path", name="Unit", allowedValue=UnitListValue()),
-    Setting(section="Peer", name="MACAddress", allowedValue=TextValue()), # TODO: max address parser
+    Setting(section="Peer", name="MACAddress", allowedValue=MacAddressValue()),
     Setting(section="Peer", name="Name", allowedValue=TextValue()),
     Setting(section="PFIFO", name="Handle", allowedValue=NumericValue(lower=1, upper=0xffff, numberBase=16), sinceRel="2.46"),
     Setting(section="PFIFO", name="PacketLimit", allowedValue=NumericValue(upper=4294967294), sinceRel="2.46"),

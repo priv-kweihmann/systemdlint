@@ -240,6 +240,28 @@ class EmptyValue(Value):
     def GetInvalidValues(self):
         return ["a"]
 
+class ListOf(Value):
+    def __init__(self, obj, delimiter=" ", conditional={}):
+        super().__init__(conditional)
+        self.__object = obj
+        self.__delimiter = delimiter
+
+    def IsAllowedValue(self, value):
+        return all(self.__object.IsAllowedValue(x) for x in self.CleanValue(value).split(self.__delimiter) if x)
+
+    def GetAllowedValues(self):
+        if any(self.__object.GetAllowedValues()):
+            return [self.__delimiter.join(self.__object.GetAllowedValues())]
+        return []
+
+    def GetInvalidValues(self):
+        res = []
+        if any(self.__object.GetInvalidValues()):
+            res = [self.__delimiter.join([str(x) for x in self.__object.GetInvalidValues()])]
+            if any(self.__object.GetAllowedValues()):
+                _x = [str(x) for x in self.__object.GetAllowedValues()] + [str(self.__object.GetInvalidValues()[0])]
+                res.append(self.__delimiter.join(_x))
+        return res
 
 class IPValue(Value):
     def __init__(self, conditional={}):
@@ -529,6 +551,25 @@ class OctalModeValue(Value):
 
     def GetInvalidValues(self):
         return [True, "999", "888"]
+
+class MacAddressValue(Value):
+    def __init__(self, conditional={}):
+        super().__init__(conditional)
+
+    def IsAllowedValue(self, value):
+        if any(re.match(x, self.CleanValue(value)) for x in [
+                                r"([a-f0-9]{2}-){5}[a-f0-9]{2}",
+                                r"([a-f0-9]{2}:){5}[a-f0-9]{2}",
+                                r"([A-F0-9]{4}\.){2}[A-F0-9]{4}",
+                                ]):
+            return True
+        return False
+
+    def GetAllowedValues(self):
+        return ["01:23:45:67:89:ab", "00-11-22-33-44-55", "AABB.CCDD.EEFF"]
+
+    def GetInvalidValues(self):
+        return [True, "01:23:45:67:89", "00-11-22-GG-44-55", "AABB:CCDD:EEFF"]
 
 
 class UrlListValue(Value):

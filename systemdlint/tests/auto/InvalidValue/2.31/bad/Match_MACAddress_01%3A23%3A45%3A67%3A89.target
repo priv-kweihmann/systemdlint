@@ -1,5 +1,5 @@
 [Unit]
 Description=Foo
 [Match]
-MACAddress=abc
+MACAddress=01:23:45:67:89
 

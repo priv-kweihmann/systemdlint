@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[EnhancedTransmissionSelection]
+PriorityMap=0 9999999999999 -1
+

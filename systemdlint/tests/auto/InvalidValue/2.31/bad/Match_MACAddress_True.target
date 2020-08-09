@@ -1,5 +1,5 @@
 [Unit]
 Description=Foo
 [Match]
-PermanentMACAddress=abc
+MACAddress=True
 

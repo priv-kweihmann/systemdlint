@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[DHCPv6]
+RequestOptions=-1 10000000000000
+

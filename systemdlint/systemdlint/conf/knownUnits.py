@@ -22,3 +22,13 @@ KNOWN_UNITS_MUST_HAVE_UNITSECTION = [
 KNOWN_RUNTIME_UNITS = [
     ".slice"
 ]
+
+KNOWN_GENERATED_UNITS = [
+    r".*\.mount",
+    r".*\.swap",
+    r"apport\.service",
+    r"grub-common\.service",
+    r"hddtemp\.service",
+    r"systemd-cryptsetup@.*\.service",
+    r"virtualbox\.service",
+]

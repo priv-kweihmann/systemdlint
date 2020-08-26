@@ -20,6 +20,7 @@ from systemdlint.cls.helper import Helper
 from systemdlint.conf.knownPaths import KNOWN_PATHS
 from systemdlint.conf.knownUnits import KNOWN_RUNTIME_UNITS
 from systemdlint.conf.knownUnits import KNOWN_UNITS_EXT
+from systemdlint.conf.knownUnits import KNOWN_GENERATED_UNITS
 
 
 class Value(object):
@@ -629,6 +630,10 @@ class UnitListValue(Value):
                         Helper.GetPath(args.rootpath, p))])
                     if found:
                         break
+            if any(re.match(x, k) for x in KNOWN_GENERATED_UNITS):
+                # filter out known generated units
+                # they are likely unavailable offline
+                found = True
             if not found:
                 res.append(ErrorRefUnitNotFound(k, item.Line, item.File))
         if self.__inverseMode:

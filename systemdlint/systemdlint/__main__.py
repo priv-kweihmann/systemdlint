@@ -12,6 +12,9 @@ def main():
             _errors += item.Validate(runargs, _stash)
         _errors = list(set(_errors))
 
+        if runargs.norootfs:
+            _errors = [x for x in _errors if not x.RequiresRootfs]
+
         _out = runargs.output
         if isinstance(_out, str):
             _out = open(runargs.output, "w")

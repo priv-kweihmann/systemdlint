@@ -11,9 +11,7 @@ Systemd Unitfile Linter
 ## Usage
 
 ```sh
-usage: systemdlint [-h] [--nodropins] [--rootpath ROOTPATH]
-                   [--sversion SVERSION] [--output OUTPUT]
-                   files [files ...]
+usage: systemdlint [-h] [--nodropins] [--rootpath ROOTPATH] [--sversion SVERSION] [--output OUTPUT] [--norootfs] files [files ...]
 
 Systemd Unitfile Linter
 
@@ -26,6 +24,7 @@ optional arguments:
   --rootpath ROOTPATH  Root path
   --sversion SVERSION  Version of Systemd to be used
   --output OUTPUT      Where to flush the findings (default: stderr)
+  --norootfs           Run only unit file related tests
 ```
 
 ## Why should I use it?

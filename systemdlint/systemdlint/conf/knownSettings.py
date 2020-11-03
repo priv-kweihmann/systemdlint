@@ -378,6 +378,7 @@ KNOWN_SETTINGS = [
     Setting(section="Link", name="MACAddressPolicy", allowedValue=TextValue()), # TODO: parser
     Setting(section="Link", name="MTUBytes", allowedValue=NumericValue(suffixes=["K", "M", "G"], base=1024)),
     Setting(section="Link", name="Multicast", allowedValue=BooleanValue()),
+    Setting(section="Link", name="OriginalName", allowedValue=ListOf(TextValue()), sinceRel="2.43"),
     Setting(section="Link", name="RequiredForOnline", allowedValue=BooleanValue()),
     Setting(section="Link", name="RxBufferSize", allowedValue=NumericValue(lower=0), sinceRel="2.44"),
     Setting(section="Link", name="RxFlowControl", allowedValue=BooleanValue(), sinceRel="2.46"),

@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[BridgeMDB]
+MulticastGroupAddress=0.0.0.
+

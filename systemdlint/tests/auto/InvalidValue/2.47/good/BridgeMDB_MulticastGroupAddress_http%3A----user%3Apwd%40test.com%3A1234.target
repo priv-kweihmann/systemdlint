@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[BridgeMDB]
+MulticastGroupAddress=http://user:pwd@test.com:1234
+

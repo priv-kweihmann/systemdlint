@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[BridgeMDB]
+MulticastGroupAddress=http://a.b.com
+

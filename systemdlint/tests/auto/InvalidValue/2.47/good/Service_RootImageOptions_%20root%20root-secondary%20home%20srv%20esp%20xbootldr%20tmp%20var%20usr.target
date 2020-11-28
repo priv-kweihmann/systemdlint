@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Service]
+RootImageOptions= root root-secondary home srv esp xbootldr tmp var usr
+

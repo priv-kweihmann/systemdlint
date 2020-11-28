@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[IPv6SendRA]
+RouterLifetimeSec=1years 2months 3days 4hours 5min 30usec
+

@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[BridgeMDB]
+VLANId=123
+

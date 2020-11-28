@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[BridgeMDB]
+MulticastGroupAddress=256.255.255.255
+

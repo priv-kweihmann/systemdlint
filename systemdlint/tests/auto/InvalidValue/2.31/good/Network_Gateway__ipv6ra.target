@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Network]
+Gateway=_ipv6ra
+

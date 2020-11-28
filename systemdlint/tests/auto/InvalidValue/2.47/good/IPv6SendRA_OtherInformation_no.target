@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[IPv6SendRA]
+OtherInformation=no
+

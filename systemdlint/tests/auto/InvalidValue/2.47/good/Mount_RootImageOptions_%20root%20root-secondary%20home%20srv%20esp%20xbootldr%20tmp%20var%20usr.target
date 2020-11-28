@@ -1,0 +1,7 @@
+[Unit]
+Description=Foo
+[Mount]
+What=abc
+Where=/tmp
+RootImageOptions= root root-secondary home srv esp xbootldr tmp var usr
+

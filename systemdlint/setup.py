@@ -15,7 +15,7 @@ with open('requirements.txt') as f:
 
 setuptools.setup(
     name="systemdlint",
-    version="1.1.15",
+    version="1.1.16",
     author="Konrad Weihmann",
     author_email="kweihmann@outlook.com",
     description="Systemd Unitfile Linter",

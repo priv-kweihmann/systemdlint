@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Link]
+GenericSegmentOffloadMaxBytes=1G
+

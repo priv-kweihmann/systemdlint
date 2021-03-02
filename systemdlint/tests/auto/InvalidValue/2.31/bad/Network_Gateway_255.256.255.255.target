@@ -1,5 +1,0 @@
-[Unit]
-Description=Foo
-[Network]
-Gateway=255.256.255.255
-

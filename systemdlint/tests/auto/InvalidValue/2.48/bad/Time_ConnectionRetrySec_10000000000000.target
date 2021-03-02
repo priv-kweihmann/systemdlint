@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Time]
+ConnectionRetrySec=10000000000000
+

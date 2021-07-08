@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[DHCPServerStaticLease]
+Address=256.255.255.255
+

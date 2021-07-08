@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[DHCPServer]
+ServerAddress=1.1.1.1/0
+

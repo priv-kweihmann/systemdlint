@@ -57,5 +57,8 @@ KNOWN_DROPIN_PATHS = {
     ],
     "journald.conf": [
         "/etc/systemd/%unit%.d/*.conf", "/run/systemd/%unit%.d/*.conf", "/usr/lib/systemd/%unit%.d/*.conf", "/lib/systemd/%unit%.d/*.conf"
-    ]
+    ],
+    "journal-upload.conf": [
+        "/etc/systemd/%unit%.d/*.conf", "/run/systemd/%unit%.d/*.conf", "/usr/lib/systemd/%unit%.d/*.conf", "/lib/systemd/%unit%.d/*.conf"
+    ],
 }

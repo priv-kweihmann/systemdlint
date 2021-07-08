@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[DHCPServerStaticLease]
+MACAddress=00-11-22-33-44-55
+

@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Scope]
+SocketBindDeny=abc
+

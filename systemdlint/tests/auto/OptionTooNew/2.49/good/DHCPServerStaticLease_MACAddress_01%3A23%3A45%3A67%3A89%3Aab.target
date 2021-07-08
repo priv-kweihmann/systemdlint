@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[DHCPServerStaticLease]
+MACAddress=123
+

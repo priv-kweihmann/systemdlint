@@ -199,3 +199,7 @@ example:
 * UnitSectionMissing - The Unit-section is missing in the file
 * UnknownUnitType - The file extension of the file is not a known systemd one
 * WrongFileMask - The file has a risky filemode set
+
+## vscode extension
+
+Find the extension in the [marketplace](https://marketplace.visualstudio.com/items?itemName=kweihmann.systemdlint-vscode), or search for `systemdlint-vscode`

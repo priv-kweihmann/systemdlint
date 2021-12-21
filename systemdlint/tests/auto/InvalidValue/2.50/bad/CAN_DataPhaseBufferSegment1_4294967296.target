@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[CAN]
+DataPhaseBufferSegment1=4294967296
+

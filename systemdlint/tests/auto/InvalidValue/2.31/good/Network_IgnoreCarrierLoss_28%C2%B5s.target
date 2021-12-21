@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Network]
+IgnoreCarrierLoss=28µs
+

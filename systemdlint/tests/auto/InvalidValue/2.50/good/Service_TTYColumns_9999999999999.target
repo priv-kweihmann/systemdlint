@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Service]
+TTYColumns=9999999999999
+

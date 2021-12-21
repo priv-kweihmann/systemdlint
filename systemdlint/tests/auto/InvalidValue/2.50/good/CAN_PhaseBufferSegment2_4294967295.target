@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[CAN]
+PhaseBufferSegment2=4294967295
+

@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Path]
+TriggerLimitIntervalSec=17second
+

@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Socket]
+TTYColumns=10000000000000
+

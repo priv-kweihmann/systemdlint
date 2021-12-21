@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Slice]
+StartupAllowedCPUs=123
+

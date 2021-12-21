@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[Swap]
+TTYColumns=9999999999999
+

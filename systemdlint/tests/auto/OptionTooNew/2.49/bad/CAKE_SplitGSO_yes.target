@@ -1,0 +1,5 @@
+[Unit]
+Description=Foo
+[CAKE]
+SplitGSO=123
+

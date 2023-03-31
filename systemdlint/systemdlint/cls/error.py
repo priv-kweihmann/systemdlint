@@ -79,7 +79,8 @@ class ErrorMandatoryOptionMissing(Error):
 
 class ErrorInvalidValue(Error):
     def __init__(self, object, value, line, file):
-        super().__init__("error", "InvalidValue", "{}={}".format(object, value), line, file, rootfs=False)
+        super().__init__("error", "InvalidValue", "{}={}".format(
+            object, value), line, file, rootfs=False)
 
 
 class ErrorInvalidNumericBase(Error):
@@ -108,6 +109,13 @@ class ErrorInvalidSetting(Error):
     def __init__(self, object, section, line, file):
         super().__init__("error", "InvalidSetting",
                          "{} is not supported in section {}".format(object, section), line, file, rootfs=False)
+
+
+class ErrorInvalidSection(Error):
+
+    def __init__(self, section, line, file):
+        super().__init__("error", "InvalidSection",
+                         "Section '{}' is not supported in this file".format(section), line, file, rootfs=False)
 
 
 class ErrorCommandCouldFail(Error):
@@ -153,6 +161,8 @@ class ErrorCyclicDependency(Error):
         super().__init__("error", "ErrorCyclicDependency",
                          "Unit creates a cyclic dependency. Chain is {}".format("->".join(depchain)), line, file)
 
+
 class ErrorSecurity(Error):
     def __init__(self, msg, file, subid, line=1, severity="error"):
-        super().__init__(severity, "Security.{}".format(subid), msg, line, file, rootfs=False)
+        super().__init__(severity, "Security.{}".format(
+            subid), msg, line, file, rootfs=False)

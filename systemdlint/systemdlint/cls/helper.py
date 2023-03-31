@@ -1,6 +1,10 @@
 import os
 import re
 import subprocess
+from typing import List, Callable
+import importlib
+import inspect
+import glob
 
 
 class Helper(object):
@@ -37,3 +41,24 @@ class Helper(object):
             return default
         except subprocess.CalledProcessError:
             return default
+
+    @staticmethod
+    def GetSubClasses(module_obj: object, cls_type_cb: Callable, fn_pattern: str = "*") -> List[object]:
+        res = []
+        base_path = os.path.abspath(os.path.join(
+            os.path.dirname(__file__), '..', '..'))
+        current_dir = os.path.dirname(inspect.getfile(module_obj.__class__))
+        for file in glob.glob(current_dir + "/" + fn_pattern):
+            name, _ = os.path.splitext(file)
+            package_path = os.path.relpath(name, base_path).replace('/', '.')
+
+            # Ignore __ files
+            if name.startswith("__"):
+                continue
+            module = importlib.import_module(package_path)
+
+            for m in inspect.getmembers(module, inspect.isclass):
+                inst = cls_type_cb(module_obj, m[1])
+                if inst:
+                    res.append(inst)
+        return res

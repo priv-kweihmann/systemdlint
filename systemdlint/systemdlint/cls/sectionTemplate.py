@@ -38,11 +38,11 @@ class SectionTemplate():
     def AvailableAttributes(self) -> List[AttributeTemplate]:
         return self.__available_attributes
 
-    def Validate(self, attribute: str, value: str, stash: List[object]) -> List[Error]:
+    def Validate(self, fn: str, attribute: str, value: str, stash: List[object]) -> List[Error]:
         obj = self.__attribute_map.get(attribute, None)
         if obj is None:
-            return ErrorInvalidSetting(attribute, self.Name, 1, 1)
-        return obj.Validate(value, stash)
+            return [ErrorInvalidSetting(attribute, self.Name, 1, fn)]
+        return obj.Validate(fn, value, stash)
 
     def __repr__(self) -> str:
         return f'{self.Name}: {self.AvailableAttributes}'

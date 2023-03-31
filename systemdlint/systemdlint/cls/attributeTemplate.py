@@ -45,7 +45,7 @@ class AttributeTemplate():
     def __repr__(self) -> str:
         return f'{self.Name}:{self.__version__}'
 
-    def Validate(self, value: str, stash: List[object]) -> List[Error]:
+    def Validate(self, fn: str, value: str, stash: List[object]) -> List[Error]:
         return []
 
 

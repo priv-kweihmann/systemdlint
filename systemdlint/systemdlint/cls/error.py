@@ -53,10 +53,10 @@ class ErrorFileMaskWrong(Error):
             oct(current), ",".join([oct(x) for x in expected])), 1, file, rootfs=False)
 
 
-class ErrorUnitSectionMissing(Error):
-    def __init__(self, file):
+class ErrorSectionMissing(Error):
+    def __init__(self, section, file):
         super().__init__("error", "UnitSectionMissing",
-                         "[Unit]-Section is missing in file", 1, file, rootfs=False)
+                         "Section '{section}' is missing in file".format(section=section), 1, file, rootfs=False)
 
 
 class ErrorMountUnitNaming(Error):
@@ -108,7 +108,7 @@ class ErrorInvalidSetting(Error):
 
     def __init__(self, object, section, line, file):
         super().__init__("error", "InvalidSetting",
-                         "{} is not supported in section {}".format(object, section), line, file, rootfs=False)
+                         "'{}' is not supported in section '{}'".format(object, section), line, file, rootfs=False)
 
 
 class ErrorInvalidSection(Error):

@@ -11,6 +11,5 @@ with open('test.service', 'w') as o:
 
     o.flush()
 
-    if x.Matches('test.service'):
-        for item in x.Parse('test.service'):
-            print(item)
+for item in x.Parse('test.service'):
+    print(item)

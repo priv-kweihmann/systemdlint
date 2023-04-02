@@ -1,11 +1,18 @@
 import fnmatch
 import os
-from typing import List, Type
+from configparser import MissingSectionHeaderError
+from configparser import ParsingError
+from typing import List
+from typing import Type
 
-from systemdlint.cls.sectionTemplate import SectionTemplate
-from systemdlint.cls.helper import Helper
-from systemdlint.cls.error import Error, ErrorInvalidSection, ErrorSectionMissing
 from SystemdUnitParser import SystemdUnitParser
+
+from systemdlint.cls.error import Error
+from systemdlint.cls.error import ErrorInvalidSection
+from systemdlint.cls.error import ErrorSectionMissing
+from systemdlint.cls.error import ErrorSyntaxError
+from systemdlint.cls.helper import Helper
+from systemdlint.cls.sectionTemplate import SectionTemplate
 
 
 class ConfigTemplate():
@@ -54,7 +61,7 @@ class ConfigTemplate():
     def UpstreamGeneratorInput(self) -> List[str]:
         return self.__upstream_generator_inputs
 
-    def Matches(self, fn) -> bool:
+    def _matches(self, fn) -> bool:
         for pattern in self.ApplicableGlobs:
             if fnmatch.fnmatch(fn, pattern):
                 return True
@@ -62,28 +69,20 @@ class ConfigTemplate():
 
     def Parse(self, fn) -> List[Error]:
         res = []
+        if not self._matches(fn):
+            return res
         __stash = SystemdUnitParser()
         if not os.path.isfile(fn):
             return res
         with open(fn) as i:
             try:
                 __stash.read_file(i)
-            # except (MissingSectionHeaderError) as e:
-            #     _file, fileext = os.path.splitext(file)
-            #     if fileext in KNOWN_UNITS_EXT:
-            #         msg = e.message.split("\n")[0]
-            #         res.append(UnitItem(file=file, line=e.lineno,
-            #                             preerror=[ErrorSyntaxError(msg, 1, file)]))
-            #     else:
-            #         return res
-            # except (ParsingError) as e:
-            #     _file, fileext = os.path.splitext(file)
-            #     if fileext in KNOWN_UNITS_EXT:
-            #         msg = e.message.split("\n")[0]
-            #         res.append(UnitItem(file=file, line=1, preerror=[
-            #                    ErrorSyntaxError(msg, 1, file)]))
-            #     else:
-            #         return res
+            except (MissingSectionHeaderError) as e:
+                res.append(ErrorSyntaxError(e.message.split('\n')[0], 1, fn))
+                return res
+            except (ParsingError) as e:
+                res.append(ErrorSyntaxError(e.message.split('\n')[0], 1, fn))
+                return res
             except UnicodeDecodeError:
                 # This seems to be a binary
                 return res

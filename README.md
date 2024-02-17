@@ -78,6 +78,12 @@ example:
 /lib/systemd/system/basic.target:19:warning [ReferencedUnitNotFound] - The Unit 'tmp.mount' referenced was not found in filesystem
 ```
 
+The output format is configurable with `--messageformat`, for example:
+
+```sh
+systemdlint --messageformat='{path}:{line}:{severity}:{msg}' ...
+```
+
 ## Detectable Errors
 
 * ConflictingOptions - The set option somehow is in conflict with another unit

@@ -1,5 +1,7 @@
 class Error(object):
 
+    MessageFormat = "{path}:{line}:{severity} [{id}] - {msg}"
+
     def __init__(self, severity, msg, details, line, file, rootfs=True):
         self.Severity = severity
         self.Msg = msg
@@ -9,7 +11,12 @@ class Error(object):
         self.RequiresRootfs = rootfs
 
     def __repr__(self):
-        return "{}:{}:{} [{}] - {}".format(self.File, self.Line, self.Severity, self.Msg, self.Details)
+        return self.MessageFormat.format(
+            path=self.File,
+            line=self.Line,
+            severity=self.Severity,
+            id=self.Msg,
+            msg=self.Details)
 
     def __eq__(self, other):
         if isinstance(other, Error) or issubclass(other, Error):

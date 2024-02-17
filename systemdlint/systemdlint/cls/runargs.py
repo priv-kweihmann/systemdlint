@@ -3,6 +3,7 @@ import os
 import sys
 
 from systemdlint.cls.helper import Helper
+from systemdlint.cls.error import Error
 
 RUNARGS = None
 
@@ -15,6 +16,20 @@ def __isNoDropIn(_file):
     if ext == ".conf" and parentdir.endswith(".d"):
         return False
     return True
+
+
+def __CheckMessageFormat(_messageformat: str):
+    try:
+        _messageformat.format(
+            path="File",
+            line="Line",
+            severity="Severity",
+            id="Msg",
+            msg="Details")
+    except KeyError as e:
+        print(f"Argument --messageformat contains an unknown key: {e}\n"
+              "Use one of: path, line, severity, id, msg.")
+        exit(1)
 
 
 def ArgParser():
@@ -33,6 +48,7 @@ def ArgParser():
                         help="Run only unit file related tests")
     parser.add_argument("--gentests", default=False,
                         action="store_true", help=argparse.SUPPRESS)
+    parser.add_argument('--messageformat', type=str, help='Format of message output')
     parser.add_argument("files", nargs='+', help="Files to parse")
     RUNARGS = parser.parse_args()
     # Turn all paths to abs-paths right here
@@ -42,4 +58,7 @@ def ArgParser():
         # Auto determine used systemd version, if not overriden from outside
         RUNARGS.sversion = Helper.GetSystemdVersion(
             RUNARGS.rootpath, DEFAULT_VERSION)
+    if RUNARGS.messageformat is not None:
+        __CheckMessageFormat(RUNARGS.messageformat)
+        Error.MessageFormat = RUNARGS.messageformat
     return RUNARGS

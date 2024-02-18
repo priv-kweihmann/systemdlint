@@ -1,6 +1,7 @@
 import argparse
 import os
 import sys
+import re
 
 from systemdlint.cls.helper import Helper
 from systemdlint.cls.error import Error
@@ -58,6 +59,9 @@ def ArgParser():
         # Auto determine used systemd version, if not overriden from outside
         RUNARGS.sversion = Helper.GetSystemdVersion(
             RUNARGS.rootpath, DEFAULT_VERSION)
+    else:
+        if not re.match(r'\d\.\d\d$', RUNARGS.sversion):
+            raise ValueError('--sversion needs to be in the format of x.xx')
     if RUNARGS.messageformat is not None:
         __CheckMessageFormat(RUNARGS.messageformat)
         Error.MessageFormat = RUNARGS.messageformat

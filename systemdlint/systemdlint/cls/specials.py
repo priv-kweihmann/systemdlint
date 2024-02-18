@@ -236,7 +236,7 @@ class SpecialSecurityAssessment(object):
             return res
         _file = stash[0].File
         if not UnitItem(file="magicfoo", section="Service", key="RootDirectory").IsValidInVersion(self.__version) and \
-           not UnitItem(section="Service", key="RootImage").IsValidInVersion(self.__version):
+           not UnitItem(file="magicfoo", section="Service", key="RootImage").IsValidInVersion(self.__version):
             return res
         _root = [x for x in stash if x.Key ==
                  "RootDirectory" or x.Key == "RootImage"]

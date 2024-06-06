@@ -1,0 +1,8 @@
+[Unit]
+Description=Foo
+
+[Service]
+Type=oneshot
+ExecStartPre=/bin/ls /foo/bar/%i
+ExecStart=/bin/ls -l /foo/bar/%i
+ExecStartPost=/bin/ls /foo/bar-zap/%i

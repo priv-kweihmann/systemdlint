@@ -64,13 +64,13 @@ class Value(object):
     def IsAllowedValue(self, value):
         return False
 
-    def AdditionalErrors(self, value, item, runargs):
+    def AdditionalErrors(self, value, item, runargs, search = lambda x,y: y in x):
         res = []
         if not self.__conditionals.keys():
             return res
         cond = value.replace(self.CleanValue(value), "")
         for k, v in self.__conditionals.items():
-            if k in cond and v:
+            if search(cond, k) and v:
                 module = importlib.import_module("systemdlint.cls.error")
                 class_ = getattr(module, v)
                 res.append(class_(item.Line, item.File))
@@ -715,7 +715,7 @@ class ExecValue(Value):
         return False
 
     def AdditionalErrors(self, value, item, args):
-        res = super().AdditionalErrors(value, item, args)
+        res = super().AdditionalErrors(value, item, args, search = lambda x,y: x.startswith(y))
         com = self.CleanValue(value).split(" ")[0]
         if not os.path.exists(Helper.GetPath(args.rootpath, com)):
             res.append(ErrorExecNotFound(item.Line, item.File))

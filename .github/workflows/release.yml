@@ -9,6 +9,8 @@ concurrency:
 
 jobs:
   release:
+    permissions:
+      id-token: write
 
     runs-on: ubuntu-latest
 

@@ -1,3 +1,3 @@
 #!/bin/sh
-python3 setup.py build
-python3 setup.py sdist
+python3 -m pip install --upgrade pip build
+python3 -m build --sdist --wheel

@@ -1,5 +1,4 @@
-[Unit]
-Description=Foo
 [Link]
+Description=Foo
 RxBufferSize=0
 

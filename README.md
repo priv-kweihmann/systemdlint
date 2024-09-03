@@ -4,7 +4,6 @@
 [![PyPI version](https://badge.fury.io/py/systemdlint.svg)](https://badge.fury.io/py/systemdlint)
 [![Python version](https://img.shields.io/pypi/pyversions/systemdlint)](https://img.shields.io/pypi/pyversions/systemdlint)
 [![Downloads](https://img.shields.io/pypi/dm/systemdlint)](https://img.shields.io/pypi/dm/systemdlint)
-[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/priv-kweihmann/systemdlint.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/priv-kweihmann/systemdlint/context:python)
 
 Systemd Unitfile Linter
 

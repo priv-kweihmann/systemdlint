@@ -332,7 +332,7 @@ class DeviceNodeValue(Value):
 
 
 class TimeValue(Value):
-    def __init__(self, conditional={}):
+    def __init__(self, conditional={}, specials=[]):
         super().__init__(conditional)
         self._kv = {
             "days": "d",
@@ -365,12 +365,15 @@ class TimeValue(Value):
             "y": "y",
             "µs": "us"
         }
+        self.__specials = specials
 
     def IsAllowedValue(self, value):
         val = self.CleanValue(value)
         if not val.isnumeric():
             if val == "infinity":
                 # All time values should accept 'infinity'
+                return True
+            if val in self.__specials:
                 return True
             for m in re.finditer(r"^((?P<val>\d+)\s*(?P<mul>\w+)\s*)+".format("|".join(self._kv.keys())), val):
                 val = val.replace(m.group(0), "")

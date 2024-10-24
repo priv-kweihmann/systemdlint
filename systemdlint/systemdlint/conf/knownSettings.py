@@ -555,7 +555,7 @@ KNOWN_SETTINGS = [
     Setting(section="Manager", name="NoNewPrivileges", allowedValue=BooleanValue(), sinceRel="2.39"),
     Setting(section="Manager", name="NUMAPolicy", allowedValue=EnumValue(["default", "preferred", "bind", "interleave", "local"]), sinceRel="2.43"),
     Setting(section="Manager", name="RebootWatchdogSec", allowedValue=TimeValue(), sinceRel="2.43"),
-    Setting(section="Manager", name="RuntimeWatchdogSec", allowedValue=TimeValue()),
+    Setting(section="Manager", name="RuntimeWatchdogSec", allowedValue=TimeValue(specials=["off", "default"])),
     Setting(section="Manager", name="ShowStatus", allowedValue=BooleanValue()),
     Setting(section="Manager", name="ShutdownWatchdogSec", allowedValue=TimeValue(), tillRel="2.42"),
     Setting(section="Manager", name="StatusUnitFormat", allowedValue=EnumValue(["name", "description", "combined"]), sinceRel="2.49"),

@@ -1,3 +1,5 @@
+import sys
+
 from systemdlint.cls.parser import Parser
 from systemdlint.cls.runargs import ArgParser
 from systemdlint.conf.getTests import getTests
@@ -22,8 +24,14 @@ def main():
             _out.write(str(item) + "\n")
         if isinstance(runargs.output, str):
             _out.close()
+
+        # Set non-zero exit status code
+        if _errors:
+            sys.exit(1)
+        
     else:
         getTests(runargs.files[0])
+
 
 if __name__ == '__main__':
     main()

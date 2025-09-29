@@ -35,7 +35,6 @@ def __CheckMessageFormat(_messageformat: str):
 
 def ArgParser():
     global RUNARGS
-    global DEFAULT_VERSION
     parser = argparse.ArgumentParser(
         prog="systemdlint", description='Systemd Unitfile Linter')
     parser.add_argument("--nodropins", default=False,

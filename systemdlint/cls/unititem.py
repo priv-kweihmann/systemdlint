@@ -54,7 +54,7 @@ class UnitItem(object):
         if not self.__settingHandler:
             return stash
         return self.__settingHandler.DropinProc.Run(self, stash)
-    
+
     def IsValidInVersion(self, version):
         x = self.__getMatchingItem()
         if x:

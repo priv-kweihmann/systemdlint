@@ -4,6 +4,7 @@ from systemdlint.cls.parser import Parser
 from systemdlint.cls.runargs import ArgParser
 from systemdlint.conf.getTests import getTests
 
+
 def main():
     runargs = ArgParser()
     if not runargs.gentests:
@@ -28,7 +29,7 @@ def main():
         # Set non-zero exit status code
         if _errors:
             sys.exit(1)
-        
+
     else:
         getTests(runargs.files[0])
 

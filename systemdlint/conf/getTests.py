@@ -1,5 +1,5 @@
 import os
-    
+
 from systemdlint.cls.test import TestErrorDeprecated
 from systemdlint.cls.test import TestErrorInvalidNumericBase
 from systemdlint.cls.test import TestErrorInvalidValue
@@ -11,6 +11,7 @@ from systemdlint.cls.test import TestErrorTooNewOption
 from systemdlint.cls.test import TestErrorUnitSectionMissing
 from systemdlint.cls.test import TestErrorUnknownUnitType
 from systemdlint.conf.knownSettings import KNOWN_SETTINGS
+
 
 def getTests(outputPath):
 

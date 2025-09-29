@@ -50,16 +50,16 @@ class SpecialForwardReverseOption(object):
                 _nb = [x for x in stash if x.Key == c[1] and x.UnitName == u]
                 _l = list(set([x.Value for x in _na]) &
                           set([x.Value for x in _nb]))
-                for l in _l:
-                    _ia = next(obj for obj in _na if obj.Value == l)
-                    _ib = next(obj for obj in _nb if obj.Value == l)
+                for item in _l:
+                    _ia = next(obj for obj in _na if obj.Value == item)
+                    _ib = next(obj for obj in _nb if obj.Value == item)
                     stash.append(UnitItem(file=_ia.File, line=_ia.Line, preerror=[
                         ErrorConflictingOptions("'{}' and '{}' cannot be set to the same value of '{}'".format(
-                            c[0], c[1], l), _ia.Line, _ia.File)
+                            c[0], c[1], item), _ia.Line, _ia.File)
                     ]))
                     stash.append(UnitItem(file=_ib.File, line=_ib.Line, preerror=[
                         ErrorConflictingOptions("'{}' and '{}' cannot be set to the same value of '{}'".format(
-                            c[0], c[1], l), _ib.Line, _ib.File)
+                            c[0], c[1], item), _ib.Line, _ib.File)
                     ]))
         return stash
 
@@ -295,7 +295,6 @@ class SpecialSecurityAssessment(object):
         res = []
         if not stash:
             return res
-        _file = stash[0].File
         if not UnitItem(file="magicfoo", section="Service", key="NotifyAccess").IsValidInVersion(self.__version):
             return res
         _items = [x for x in stash if x.Key == "NotifyAccess"]
@@ -380,7 +379,6 @@ class SpecialSecurityAssessment(object):
         res = []
         if not stash:
             return res
-        _file = stash[0].File
         for k in keys:
             if not UnitItem(file="magicfoo", section="Service", key=k).IsValidInVersion(self.__version):
                 continue
@@ -417,7 +415,6 @@ class SpecialSecurityAssessment(object):
         res = []
         if not stash:
             return res
-        _file = stash[0].File
         if not UnitItem(file="magicfoo", section="Service", key="UMask").IsValidInVersion(self.__version):
             return res
         for x in [x for x in stash if x.Key == "UMask"]:
@@ -446,10 +443,10 @@ class SpecialSecurityAssessment(object):
                         ErrorSecurity(
                             "Files created by service are group-readbale", x.File, "UMaskGR", x.Line, severity="info")
                     ]))
-            except:
+            except Exception:
                 pass
         return res
-    
+
     def __is_matching_unit(self, item):
         _file, _ext = os.path.splitext(item.File)
         if _ext in [".service"]:
@@ -460,7 +457,8 @@ class SpecialSecurityAssessment(object):
 
     def Run(self, stash, runargs):
         self.__version = runargs.sversion
-        uniqunits = list(set([x.UnitName for x in stash if self.__is_matching_unit(x)]))
+        uniqunits = list(
+            set([x.UnitName for x in stash if self.__is_matching_unit(x)]))
         for u in uniqunits:
             _sub_stash = [x for x in stash if x.UnitName == u]
             # User

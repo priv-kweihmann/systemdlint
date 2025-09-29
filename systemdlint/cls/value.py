@@ -64,7 +64,7 @@ class Value(object):
     def IsAllowedValue(self, value):
         return False
 
-    def AdditionalErrors(self, value, item, runargs, search = lambda x,y: y in x):
+    def AdditionalErrors(self, value, item, runargs, search=lambda x, y: y in x):
         res = []
         if not self.__conditionals.keys():
             return res
@@ -241,6 +241,7 @@ class EmptyValue(Value):
     def GetInvalidValues(self):
         return ["a"]
 
+
 class ListOf(Value):
     def __init__(self, obj, delimiter=" ", conditional={}):
         super().__init__(conditional)
@@ -258,11 +259,14 @@ class ListOf(Value):
     def GetInvalidValues(self):
         res = []
         if any(self.__object.GetInvalidValues()):
-            res = [self.__delimiter.join([str(x) for x in self.__object.GetInvalidValues()])]
+            res = [self.__delimiter.join(
+                [str(x) for x in self.__object.GetInvalidValues()])]
             if any(self.__object.GetAllowedValues()):
-                _x = [str(x) for x in self.__object.GetAllowedValues()] + [str(self.__object.GetInvalidValues()[0])]
+                _x = [str(x) for x in self.__object.GetAllowedValues()
+                      ] + [str(self.__object.GetInvalidValues()[0])]
                 res.append(self.__delimiter.join(_x))
         return res
+
 
 class IPValue(Value):
     def __init__(self, conditional={}):
@@ -375,7 +379,7 @@ class TimeValue(Value):
                 return True
             if val in self.__specials:
                 return True
-            for m in re.finditer(r"^((?P<val>\d+)\s*(?P<mul>\w+)\s*)+".format("|".join(self._kv.keys())), val):
+            for m in re.finditer(r"^((?P<val>\d+)\s*(?P<mul>\w+)\s*)+".format("|".join(self._kv.keys())), val):  # noqa: F523
                 val = val.replace(m.group(0), "")
                 try:
                     mul = self._kv[m.group("mul")]
@@ -518,23 +522,23 @@ class SignalValue(EnumListValue):
 
 class ErrorTypeValue(EnumListValue):
     def __init__(self, conditional={}):
-        signals = ["E2BIG", "EACCES", "EADDRINUSE", "EADDRNOTAVAIL", "EAFNOSUPPORT", "EAGAIN", 
-                   "EALREADY", "EBADE", "EBADF", "EBADFD", "EBADMSG", "EBADR", "EBADRQC", "EBADSLT", 
-                   "EBUSY", "ECANCELED", "ECHILD", "ECHRNG", "ECOMM", "ECONNABORTED", "ECONNREFUSED", 
-                   "ECONNRESET", "EDEADLK", "EDEADLOCK", "EDESTADDRREQ", "EDOM", "EDQUOT", "EEXIST", 
-                   "EFAULT", "EFBIG", "EHOSTDOWN", "EHOSTUNREACH", "EHWPOISON", "EIDRM", "EILSEQ", 
-                   "EINPROGRESS", "EINTR", "EINVAL", "EIO", "EISCONN", "EISDIR", "EISNAM", "EKEYEXPIRED", 
-                   "EKEYREJECTED", "EKEYREVOKED", "EL2HLT", "EL2NSYNC", "EL3HLT", "EL3RST", "ELIBACC", 
-                   "ELIBBAD", "ELIBEXEC", "ELIBMAX", "ELIBSCN", "ELNRANGE", "ELOOP", "EMEDIUMTYPE", 
-                   "EMFILE", "EMLINK", "EMSGSIZE", "EMULTIHOP", "ENAMETOOLONG", "ENETDOWN", "ENETRESET", 
-                   "ENETUNREACH", "ENFILE", "ENOANO", "ENOBUFS", "ENODATA", "ENODEV", "ENOENT", "ENOEXEC", 
-                   "ENOKEY", "ENOLCK", "ENOLINK", "ENOMEDIUM", "ENOMEM", "ENOMSG", "ENONET", "ENOPKG", 
-                   "ENOPROTOOPT", "ENOSPC", "ENOSR", "ENOSTR", "ENOSYS", "ENOTBLK", "ENOTCONN", "ENOTDIR", 
-                   "ENOTEMPTY", "ENOTRECOVERABLE", "ENOTSOCK", "ENOTSUP", "ENOTTY", "ENOTUNIQ", "ENXIO", 
-                   "EOPNOTSUPP", "EOVERFLOW", "EOWNERDEAD", "EPERM", "EPFNOSUPPORT", "EPIPE", "EPROTO", 
-                   "EPROTONOSUPPORT", "EPROTOTYPE", "ERANGE", "EREMCHG", "EREMOTE", "EREMOTEIO", "ERESTART", 
-                   "ERFKILL", "EROFS", "ESHUTDOWN", "ESOCKTNOSUPPORT", "ESPIPE", "ESRCH", "ESTALE", 
-                   "ESTRPIPE", "ETIME", "ETIMEDOUT", "ETOOMANYREFS", "ETXTBSY", "EUCLEAN", "EUNATCH", 
+        signals = ["E2BIG", "EACCES", "EADDRINUSE", "EADDRNOTAVAIL", "EAFNOSUPPORT", "EAGAIN",
+                   "EALREADY", "EBADE", "EBADF", "EBADFD", "EBADMSG", "EBADR", "EBADRQC", "EBADSLT",
+                   "EBUSY", "ECANCELED", "ECHILD", "ECHRNG", "ECOMM", "ECONNABORTED", "ECONNREFUSED",
+                   "ECONNRESET", "EDEADLK", "EDEADLOCK", "EDESTADDRREQ", "EDOM", "EDQUOT", "EEXIST",
+                   "EFAULT", "EFBIG", "EHOSTDOWN", "EHOSTUNREACH", "EHWPOISON", "EIDRM", "EILSEQ",
+                   "EINPROGRESS", "EINTR", "EINVAL", "EIO", "EISCONN", "EISDIR", "EISNAM", "EKEYEXPIRED",
+                   "EKEYREJECTED", "EKEYREVOKED", "EL2HLT", "EL2NSYNC", "EL3HLT", "EL3RST", "ELIBACC",
+                   "ELIBBAD", "ELIBEXEC", "ELIBMAX", "ELIBSCN", "ELNRANGE", "ELOOP", "EMEDIUMTYPE",
+                   "EMFILE", "EMLINK", "EMSGSIZE", "EMULTIHOP", "ENAMETOOLONG", "ENETDOWN", "ENETRESET",
+                   "ENETUNREACH", "ENFILE", "ENOANO", "ENOBUFS", "ENODATA", "ENODEV", "ENOENT", "ENOEXEC",
+                   "ENOKEY", "ENOLCK", "ENOLINK", "ENOMEDIUM", "ENOMEM", "ENOMSG", "ENONET", "ENOPKG",
+                   "ENOPROTOOPT", "ENOSPC", "ENOSR", "ENOSTR", "ENOSYS", "ENOTBLK", "ENOTCONN", "ENOTDIR",
+                   "ENOTEMPTY", "ENOTRECOVERABLE", "ENOTSOCK", "ENOTSUP", "ENOTTY", "ENOTUNIQ", "ENXIO",
+                   "EOPNOTSUPP", "EOVERFLOW", "EOWNERDEAD", "EPERM", "EPFNOSUPPORT", "EPIPE", "EPROTO",
+                   "EPROTONOSUPPORT", "EPROTOTYPE", "ERANGE", "EREMCHG", "EREMOTE", "EREMOTEIO", "ERESTART",
+                   "ERFKILL", "EROFS", "ESHUTDOWN", "ESOCKTNOSUPPORT", "ESPIPE", "ESRCH", "ESTALE",
+                   "ESTRPIPE", "ETIME", "ETIMEDOUT", "ETOOMANYREFS", "ETXTBSY", "EUCLEAN", "EUNATCH",
                    "EUSERS", "EWOULDBLOCK", "EXDEV", "EXFULL"]
         super().__init__(signals, conditional)
 
@@ -556,16 +560,17 @@ class OctalModeValue(Value):
     def GetInvalidValues(self):
         return [True, "999", "888"]
 
+
 class MacAddressValue(Value):
     def __init__(self, conditional={}):
         super().__init__(conditional)
 
     def IsAllowedValue(self, value):
         if any(re.match(x, self.CleanValue(value)) for x in [
-                                r"([a-f0-9]{2}-){5}[a-f0-9]{2}",
-                                r"([a-f0-9]{2}:){5}[a-f0-9]{2}",
-                                r"([A-F0-9]{4}\.){2}[A-F0-9]{4}",
-                                ]):
+            r"([a-f0-9]{2}-){5}[a-f0-9]{2}",
+            r"([a-f0-9]{2}:){5}[a-f0-9]{2}",
+            r"([A-F0-9]{4}\.){2}[A-F0-9]{4}",
+        ]):
             return True
         return False
 
@@ -718,7 +723,8 @@ class ExecValue(Value):
         return False
 
     def AdditionalErrors(self, value, item, args):
-        res = super().AdditionalErrors(value, item, args, search = lambda x,y: x.startswith(y))
+        res = super().AdditionalErrors(value, item, args,
+                                       search=lambda x, y: x.startswith(y))
         com = self.CleanValue(value).split(" ")[0]
         if not os.path.exists(Helper.GetPath(args.rootpath, com)):
             res.append(ErrorExecNotFound(item.Line, item.File))
@@ -738,7 +744,7 @@ class ExecValue(Value):
 class CombinedValue(Value):
     def __init__(self, args, conditional={}):
         self.__args = args
-        assert(all([issubclass(x.__class__, Value) for x in self.__args]))
+        assert (all([issubclass(x.__class__, Value) for x in self.__args]))
         super().__init__(conditional)
 
     def IsAllowedValue(self, value):
@@ -773,7 +779,7 @@ class CombinedValue(Value):
 class EitherValue(Value):
     def __init__(self, args, conditional={}):
         self.__args = args
-        assert(all([issubclass(x.__class__, Value) for x in self.__args]))
+        assert (all([issubclass(x.__class__, Value) for x in self.__args]))
         super().__init__(conditional)
 
     def IsAllowedValue(self, value):

@@ -1,0 +1,78 @@
+[build-system]
+requires = ["setuptools >= 77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+dynamic.optional-dependencies = {dev = { file = ["requirements-dev.txt"] }}
+include-package-data = false
+packages.find.where = ["."] 
+packages.find.exclude = ["docs*", "tests*", ".*tests*", "tests", ".*tests.*"]
+
+[tool.flake8]
+no-accept-encodings = true
+max-line-length = 127
+max-complexity = 10
+ignore = [
+    "C901",
+    "CFQ001",
+    "CFQ002",
+    "CFQ004",
+    "D1",
+    "D2",
+    "D4",
+    "DAR",
+    "E261",
+    "E302",
+    "E501",
+    "I001",
+    "I005",
+    "N802",
+    "N803",
+    "N806",
+    "Q000",
+    "T201",
+    "VNE001",
+    "W504"
+]
+exclude = [ "tests/*" ]
+statistics = false
+
+[project]
+name = "systemdlint"
+requires-python = ">= 3.9"
+version = "1.4.0"
+description = "Systemd Unitfile Linter"
+readme = "README.md"
+maintainers = [
+  {name = "Konrad Weihmann", email = "kweihmann@outlook.com"}
+]
+license = "BSD-2-Clause"
+license-files = ["LICENSE"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.9",
+    "Topic :: Software Development :: Quality Assurance",
+]
+dependencies = [
+  "systemdunitparser >= 0.4",
+  "anytree ~= 2.13"
+]
+dynamic = ["optional-dependencies"]
+
+[project.scripts]
+systemdlint = "systemdlint.__main__:main"
+
+[project.urls]
+homepage = "https://github.com/priv-kweihmann/systemdlint"
+repository = "https://github.com/priv-kweihmann/systemdlint.git"
+bugtracker = "https://github.com/priv-kweihmann/systemdlint/issues"

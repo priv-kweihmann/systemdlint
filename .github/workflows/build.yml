@@ -1,6 +1,6 @@
 name: Build
 
-on: [push]
+on: [pull_request]
 
 jobs:
   build:
@@ -9,7 +9,7 @@ jobs:
     strategy:
       max-parallel: 5
       matrix:
-        python-version: ['3.8', '3.9', '3.10']
+        python-version: ['3.9', '3.10', '3.11', '3.12', '3.13']
 
     steps:
     - uses: actions/checkout@v2
@@ -19,16 +19,11 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip build
-        pip install anytree systemdunitparser
+        python -m pip install --upgrade pip
+        pip install .[dev]
     - name: Lint with flake8
       run: |
-        pip install flake8
-        cd systemdlint
-        # stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 . --count --exit-zero --ignore=E501,E261 --max-complexity=10 --max-line-length=127 --statistics
+        flake8 systemdlint
     - name: Build
       run: |
         python -m build --sdist --wheel
@@ -38,5 +33,3 @@ jobs:
     - name: Test
       run: |
         $(pwd)/tests/test
-      # Disable testing at 3.8 for now
-      if: matrix.python-version != '3.8'

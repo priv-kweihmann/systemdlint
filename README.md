@@ -55,7 +55,7 @@ pip3 install systemdlint
 
 ### From source
 
-* Install the needed requirements by running ```pip3 install systemdunitparser anytree```
+* Install the needed requirements by running ```pip3 install .```
 * git clone this repository
 * cd to \<clone folder\>/systemdlint
 * run ```sudo ./build.sh```

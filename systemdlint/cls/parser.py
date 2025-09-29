@@ -30,11 +30,11 @@ class Parser(object):
     def __getLineFromFile(self, file, needles):
         with open(file) as i:
             lines = i.readlines()
-            for l in lines:
-                if not l:
+            for line in lines:
+                if not line:
                     continue
-                if all([l.find(x) != -1 for x in needles]):
-                    return lines.index(l) + 1
+                if all([line.find(x) != -1 for x in needles]):
+                    return lines.index(line) + 1
         return -1
 
     def __parseFile(self, file, runargs):
@@ -110,7 +110,8 @@ class Parser(object):
 
     def GlobalValidate(self):
         for s in SPECIALS_ALLITEMS:
-            self.__unititems = s.Run(list(set(self.__unititems)), self.__runargs)
+            self.__unititems = s.Run(
+                list(set(self.__unititems)), self.__runargs)
 
     def GetResults(self):
         self.GlobalValidate()

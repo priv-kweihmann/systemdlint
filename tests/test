@@ -4,8 +4,7 @@ import os
 import re
 import subprocess
 import sys
-from multiprocessing import Pool
-from multiprocessing import cpu_count
+import multiprocessing
 
 _basepath = os.path.dirname(os.path.abspath(__file__))
 _bindir = os.path.abspath(os.path.join(_basepath, "..", "bin"))
@@ -89,7 +88,8 @@ for _file in glob.glob(_basepath + "/**/*", recursive=True):
     _files.append(_file)
 
 # Run in pool
-p = Pool(processes=cpu_count() * 10)
+ctx = multiprocessing.get_context('fork')
+p = ctx.Pool(processes=multiprocessing.cpu_count() * 10)
 _map = p.map(run_tc, _files)
 
 if not all([x for x in _map]):

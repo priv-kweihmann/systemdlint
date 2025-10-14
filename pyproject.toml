@@ -39,7 +39,7 @@ statistics = false
 
 [project]
 name = "systemdlint"
-requires-python = ">= 3.9"
+requires-python = ">= 3.10"
 version = "1.4.0"
 description = "Systemd Unitfile Linter"
 readme = "README.md"
@@ -60,7 +60,7 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
-    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
     "Topic :: Software Development :: Quality Assurance",
 ]
 dependencies = [
